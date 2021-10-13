@@ -32,7 +32,7 @@ public class FramerateCounter : MonoBehaviour
             m_frameCounter = 0;
             m_timeCounter = 0.0f;
 
-            framerateCounter.text = m_lastFramerate.ToString("F0");
+            framerateCounter.text = "FPS: " + m_lastFramerate.ToString("F0");
         }
     }
 }

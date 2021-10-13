@@ -43,8 +43,6 @@ public class TiltMovement : MonoBehaviour
         if (xAcceleration < tiltThreshold && xAcceleration > -tiltThreshold)
             xAcceleration = 0;
 
-        xAcceleration *= Mathf.Abs(xAcceleration);
-
         Vector2 movement = new Vector2(xAcceleration, 0.0f) * movementSpeed * Time.deltaTime * 100;
         return movement;
     }

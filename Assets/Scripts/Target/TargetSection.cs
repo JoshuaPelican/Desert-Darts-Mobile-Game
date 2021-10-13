@@ -28,6 +28,7 @@ public class TargetSection : MonoBehaviour
         if (collision.CompareTag("Spine"))
         {
             Spine spine = collision.gameObject.GetComponent<Spine>();
+            collision.enabled = false;
 
             //Do something with points
             GameManager.instance.ApplyPoints(pointValue * spine.pointMultiplier, GameManager.Operation.Add, true, transform.position, sectionColor);

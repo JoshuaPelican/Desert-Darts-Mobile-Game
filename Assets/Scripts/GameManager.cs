@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -31,6 +32,8 @@ public class GameManager : MonoBehaviour
         Multiply,
         Divide
     }
+    [Header("Points Settings")]
+    [SerializeField] TextMeshProUGUI pointsTextMesh;
 
     [Header("Floating Text Settings")]
     [SerializeField] GameObject floatingText;
@@ -41,6 +44,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] float pointsScaleMax = 25f;
     [SerializeField] float scaleMax = 2f;
 
+    // Takes in a a point value and a bool for if using the global multiplier
+    // Adds the point value to the total points count and uses multiplier if required
     public void ApplyPoints(float value, Operation operation, bool applyMultiplier)
     {
         if (applyMultiplier)
@@ -63,8 +68,12 @@ public class GameManager : MonoBehaviour
                 totalPoints /= value;
                 break;
         }
+
+        UpdateValueText(pointsTextMesh, totalPoints);
     }
 
+    // Takes in a a point value and a bool for if using the global multiplier. This version also takes in a position and color used for floating text popup
+    // Adds the point value to the total points count and uses multiplier if required. Places floating text at the desired position and gives it the desired color.
     public void ApplyPoints(float value, Operation operation, bool applyMultiplier, Vector3 floatingTextPosition, Color floatingTextColor)
     {
         ApplyPoints(value, operation, applyMultiplier);
@@ -95,41 +104,10 @@ public class GameManager : MonoBehaviour
         DisplayFloatingText(pointsString, floatingTextPosition, pointsScale, floatingTextColor);
     }
 
-    /*
-    // Takes in a position (used for floating text), a point value and a bool for if using the global multiplier
-    // Adds the point value to the total points count and uses multiplier if required. Places floating text at the desired position
-    public void AddPoints(Vector2 floatingPos, float addedPoints, bool useMultiplier = true)
+    private void UpdateValueText(TextMeshProUGUI textMesh, float value, string prefix = "", string suffix = "", string valueFormat = "F0")
     {
-        if (useMultiplier)
-        {
-            addedPoints *= pointsMultiplier;
-        }
-
-        totalPoints += addedPoints;
-
-        string addePointsString = "+" + addedPoints.ToString("F1");
-        float addedPointsScale = ((addedPoints / pointsScaleMax) * scaleMax) + 1;
-
-        DisplayFloatingText(floatingPos, addedPointsScale, addePointsString);
+        textMesh.text = prefix + value.ToString(valueFormat) + suffix;
     }
-
-    // Takes in a position (used for floating text), a point value and a bool for if using the global multiplier
-    // Subtracts the point value to the total points count and uses multiplier if required. Places floating text at the desired position
-    public void LosePoints(Vector2 floatingPos, float lostPoints, bool useMultiplier = false)
-    {
-        if (useMultiplier)
-        {
-            lostPoints *= pointsMultiplier;
-        }
-
-        totalPoints -= lostPoints;
-
-        string lostPointsString = "-" + lostPoints.ToString("F1");
-        float lostPointsScale = ((lostPoints / -pointsScaleMax) * scaleMax) + 1;
-
-        DisplayFloatingText(floatingPos, lostPointsScale,lostPointsString);
-    }
-    */
 
     //Takes in a position, a base scale miltiplier and a text string
     //Places floating text at the position with the givent text string. Randomly adjusts position, rotation and scales the text based on global random ranges
