@@ -13,14 +13,11 @@ public class Spine : MonoBehaviour
         rig = GetComponent<Rigidbody2D>();
     }
 
-    public IEnumerator SpineHit(Transform hit)
+    public void SpineHit(Transform hit)
     {
-        yield return new WaitForSeconds(Random.Range(0f, 0.02f));
-
-        transform.SetParent(hit);
-
         rig.velocity = Vector2.zero;
         rig.isKinematic = true;
+        transform.SetParent(hit);
 
         Destroy(gameObject, 1.5f);
     }

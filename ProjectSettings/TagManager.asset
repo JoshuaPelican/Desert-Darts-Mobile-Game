@@ -42,3 +42,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Spines
+    uniqueID: 1897354541
+    locked: 0
+  - name: Target
+    uniqueID: 3751581013
+    locked: 0
+  - name: Floating Text
+    uniqueID: 3849876687
+    locked: 0

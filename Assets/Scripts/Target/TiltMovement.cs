@@ -31,10 +31,13 @@ public class TiltMovement : MonoBehaviour
 
     private Vector2 CalculateTilt()
     {
-        Vector3 acceleration = Input.acceleration;
+        Vector3 acceleration = Input.acceleration; //Getting the acceleration from the phone's accelerometer
 
-        if (acceleration.sqrMagnitude > 1)
-            acceleration.Normalize();
+        //if (acceleration.sqrMagnitude > 1) //If the 
+        //    acceleration.Normalize();
+
+        Vector3.ClampMagnitude(acceleration, 1);
+
         float xAcceleration = acceleration.x;
 
         if (xAcceleration < tiltThreshold && xAcceleration > -tiltThreshold)

@@ -6,6 +6,13 @@ public class TargetSection : MonoBehaviour
     [SerializeField] Transform socket;
     [SerializeField] [Range(-1, 1)] int direction = 1;
 
+    Color sectionColor;
+
+    private void Start()
+    {
+        sectionColor = GetComponent<SpriteRenderer>().color;
+    }
+
     private void Update()
     {
         if(socket != null)
@@ -23,10 +30,12 @@ public class TargetSection : MonoBehaviour
             Spine spine = collision.gameObject.GetComponent<Spine>();
 
             //Do something with points
-            GameManager.instance.AddPoints(pointValue * spine.pointMultiplier);
+            GameManager.instance.ApplyPoints(pointValue * spine.pointMultiplier, GameManager.Operation.Add, true, transform.position, sectionColor);
+
+            //Make a floating text with the points;
 
             //Do something with the spine
-            StartCoroutine(spine.SpineHit(transform));
+            spine.SpineHit(transform);
         }
     }
 }
