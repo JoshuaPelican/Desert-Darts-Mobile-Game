@@ -248,6 +248,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointValue: 7
+  intensityBoost: 0.03
   socket: {fileID: 405391967}
   direction: 1
 --- !u!1 &57316346
@@ -261,7 +262,7 @@ GameObject:
   - component: {fileID: 57316348}
   - component: {fileID: 57316347}
   m_Layer: 0
-  m_Name: SpineSpawnManager
+  m_Name: Spine Spawn Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -279,10 +280,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46c6a26870065f94bab2210df9f4c770, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spineGravity: -5
   spawnWidthRange: {x: -2, y: 2}
   spawnHeight: 5
-  spawnRateRange: {x: 0.5, y: 1}
+  intensity: 0
+  intensityStrength: 2
   basicSpine: {fileID: 8402550240428330766, guid: 0662fe52bbec19148b1e9de1183ff788, type: 3}
+  patternDatabase:
+  - {fileID: 11400000, guid: 54c962dc3f0114048857bcff77261aee, type: 2}
+  - {fileID: 11400000, guid: 9c3f93c553e490b499484a4df73dbdc4, type: 2}
+  - {fileID: 11400000, guid: fcc348ac59cf6c648895d6c74bf89e08, type: 2}
+  - {fileID: 11400000, guid: 40b053b6d0d355647a47e0980d99e054, type: 2}
+  - {fileID: 11400000, guid: d64dcf53bda26ab4ab35bb3792db4a9c, type: 2}
+  - {fileID: 11400000, guid: 5931eac15e5f956429ce25e5f10de767, type: 2}
+  - {fileID: 11400000, guid: 20a0c3bb0ec01ef438a20d8837436454, type: 2}
 --- !u!4 &57316348
 Transform:
   m_ObjectHideFlags: 0
@@ -293,7 +304,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1710861569}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -499,6 +511,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointValue: 3
+  intensityBoost: 0
   socket: {fileID: 1373661026}
   direction: 1
 --- !u!1 &240237692
@@ -821,6 +834,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointValue: 9
+  intensityBoost: 0.05
   socket: {fileID: 0}
   direction: 0
 --- !u!1 &519420028
@@ -1295,6 +1309,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointValue: 3
+  intensityBoost: 0
   socket: {fileID: 874419373}
   direction: -1
 --- !u!1 &874419372
@@ -1452,6 +1467,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointValue: 5
+  intensityBoost: 0.01
   socket: {fileID: 390687693}
   direction: 1
 --- !u!1 &1003762874
@@ -1644,6 +1660,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointValue: 1
+  intensityBoost: -0.01
   socket: {fileID: 1085093604}
   direction: 1
 --- !u!1 &1007333518
@@ -1657,7 +1674,7 @@ GameObject:
   - component: {fileID: 1007333520}
   - component: {fileID: 1007333519}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: Game Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2088,8 +2105,66 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointValue: 7
+  intensityBoost: 0.03
   socket: {fileID: 1487968550}
   direction: -1
+--- !u!1 &1710861568
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1710861569}
+  - component: {fileID: 1710861570}
+  m_Layer: 0
+  m_Name: Spine Out Of Bounds
+  m_TagString: OutOfBounds
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1710861569
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710861568}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 57316348}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1710861570
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710861568}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -10}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 30, y: 5}
+  m_EdgeRadius: 0
 --- !u!1 &1824767126
 GameObject:
   m_ObjectHideFlags: 0
@@ -2214,6 +2289,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointValue: 1
+  intensityBoost: -0.01
   socket: {fileID: 682599327}
   direction: -1
 --- !u!1 &1978482716
@@ -2341,5 +2417,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointValue: 5
+  intensityBoost: 0.01
   socket: {fileID: 1365489707}
   direction: -1

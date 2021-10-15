@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class Spine : MonoBehaviour
@@ -13,12 +12,24 @@ public class Spine : MonoBehaviour
         rig = GetComponent<Rigidbody2D>();
     }
 
-    public void SpineHit(Transform hit)
+    private void FixedUpdate()
+    {
+        rig.AddForce(-transform.up * Physics2D.gravity.magnitude, ForceMode2D.Force);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("OutOfBounds"))
+        {
+            SpineSpawnManager.instance.AdjustIntensity(MathUtility.Operation.Subtract, 0.075f);
+            Disable();
+        }
+    }
+
+    public void Disable()
     {
         rig.velocity = Vector2.zero;
         rig.isKinematic = true;
-        transform.SetParent(hit);
-
         Destroy(gameObject, 1.5f);
     }
 }

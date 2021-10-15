@@ -25,13 +25,7 @@ public class GameManager : MonoBehaviour
 
     float totalPoints = 0;
     float pointsMultiplier = 1;
-    public enum Operation
-    {
-        Add,
-        Subtract,
-        Multiply,
-        Divide
-    }
+
     [Header("Points Settings")]
     [SerializeField] TextMeshProUGUI pointsTextMesh;
 
@@ -46,35 +40,21 @@ public class GameManager : MonoBehaviour
 
     // Takes in a a point value and a bool for if using the global multiplier
     // Adds the point value to the total points count and uses multiplier if required
-    public void ApplyPoints(float value, Operation operation, bool applyMultiplier)
+    public void ApplyPoints(float value, MathUtility.Operation operation, bool applyMultiplier)
     {
         if (applyMultiplier)
         {
             value *= pointsMultiplier;
         }
 
-        switch (operation)
-        {
-            case Operation.Add:
-                totalPoints += value;
-                break;
-            case Operation.Subtract:
-                totalPoints -= value;
-                break;
-            case Operation.Multiply:
-                totalPoints *= value;
-                break;
-            case Operation.Divide:
-                totalPoints /= value;
-                break;
-        }
+        totalPoints = MathUtility.ApplyOperation(operation, value, totalPoints);
 
         UpdateValueText(pointsTextMesh, totalPoints);
     }
 
     // Takes in a a point value and a bool for if using the global multiplier. This version also takes in a position and color used for floating text popup
     // Adds the point value to the total points count and uses multiplier if required. Places floating text at the desired position and gives it the desired color.
-    public void ApplyPoints(float value, Operation operation, bool applyMultiplier, Vector3 floatingTextPosition, Color floatingTextColor)
+    public void ApplyPoints(float value, MathUtility.Operation operation, bool applyMultiplier, Vector3 floatingTextPosition, Color floatingTextColor)
     {
         ApplyPoints(value, operation, applyMultiplier);
 
@@ -83,16 +63,16 @@ public class GameManager : MonoBehaviour
 
         switch (operation)
         {
-            case Operation.Add:
+            case MathUtility.Operation.Add:
                 pointsString = "+ ";
                 break;
-            case Operation.Subtract:
+            case MathUtility.Operation.Subtract:
                 pointsString = "- ";
                 break;
-            case Operation.Multiply:
+            case MathUtility.Operation.Multiply:
                 pointsString = "x ";
                 break;
-            case Operation.Divide:
+            case MathUtility.Operation.Divide:
                 pointsString = "/ ";
                 break;
             default:

@@ -3,6 +3,7 @@ using UnityEngine;
 public class TargetSection : MonoBehaviour
 {
     [SerializeField] float pointValue = 1;
+    [SerializeField] float intensityBoost = 0.01f;
     [SerializeField] Transform socket;
     [SerializeField] [Range(-1, 1)] int direction = 1;
 
@@ -25,18 +26,22 @@ public class TargetSection : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //Spine target trigger stuff
         if (collision.CompareTag("Spine"))
         {
             Spine spine = collision.gameObject.GetComponent<Spine>();
             collision.enabled = false;
 
-            //Do something with points
-            GameManager.instance.ApplyPoints(pointValue * spine.pointMultiplier, GameManager.Operation.Add, true, transform.position, sectionColor);
-
+            //Do something with the points
             //Make a floating text with the points;
+            GameManager.instance.ApplyPoints(pointValue * spine.pointMultiplier, MathUtility.Operation.Add, true, transform.position, sectionColor);
+
+            //Increase spawn intensity
+            SpineSpawnManager.instance.AdjustIntensity(MathUtility.Operation.Add, intensityBoost);
 
             //Do something with the spine
-            spine.SpineHit(transform);
+            spine.transform.SetParent(transform);
+            spine.Disable();
         }
     }
 }
