@@ -26,7 +26,7 @@ public class SpineSpawnManager : MonoBehaviour
     [SerializeField] Vector2 spawnWidthRange = new Vector2(-5, 5);
     [SerializeField] float spawnHeight = 5;
 
-    [SerializeField] [Range(0, 1)] float intensity = 0;
+    float intensity = 0;
     [SerializeField] float intensityStrength = 2;
 
     [Header("Object Assignments")]
@@ -52,7 +52,7 @@ public class SpineSpawnManager : MonoBehaviour
     {
         spawningPattern = true;
 
-        float modStartDelay = Mathf.Lerp(pattern.startDelay * intensityStrength, pattern.startDelay / intensityStrength, intensity);
+        float modStartDelay = Mathf.Lerp(pattern.startDelay * intensityStrength, pattern.startDelay / (intensityStrength * 0.75f), intensity);
         yield return new WaitForSeconds(modStartDelay);
 
         for (int i = 0; i < pattern.burstCount; i++)

@@ -151,7 +151,7 @@ Transform:
   m_GameObject: {fileID: 2184902}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.1875, y: 0, z: 0}
-  m_LocalScale: {x: 0.125, y: 0.125, z: 1}
+  m_LocalScale: {x: 0.125, y: 0.175, z: 1}
   m_Children:
   - {fileID: 390687693}
   m_Father: {fileID: 159479430}
@@ -248,7 +248,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointValue: 7
-  intensityBoost: 0.03
+  intensityBoost: 0.02
   socket: {fileID: 405391967}
   direction: 1
 --- !u!1 &57316346
@@ -283,8 +283,7 @@ MonoBehaviour:
   spineGravity: -5
   spawnWidthRange: {x: -2, y: 2}
   spawnHeight: 5
-  intensity: 0
-  intensityStrength: 2
+  intensityStrength: 1.5
   basicSpine: {fileID: 8402550240428330766, guid: 0662fe52bbec19148b1e9de1183ff788, type: 3}
   patternDatabase:
   - {fileID: 11400000, guid: 54c962dc3f0114048857bcff77261aee, type: 2}
@@ -414,7 +413,7 @@ Transform:
   m_GameObject: {fileID: 198662552}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.4375, y: 0, z: 0}
-  m_LocalScale: {x: 0.125, y: 0.125, z: 1}
+  m_LocalScale: {x: 0.125, y: 0.175, z: 1}
   m_Children:
   - {fileID: 1085093604}
   m_Father: {fileID: 159479430}
@@ -788,7 +787,7 @@ Transform:
   m_GameObject: {fileID: 443338972}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.125, z: 1}
+  m_LocalScale: {x: 0.25, y: 0.175, z: 1}
   m_Children:
   - {fileID: 1487968550}
   - {fileID: 405391967}
@@ -834,7 +833,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointValue: 9
-  intensityBoost: 0.05
+  intensityBoost: 0.03
   socket: {fileID: 0}
   direction: 0
 --- !u!1 &519420028
@@ -1027,7 +1026,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: bab47be4e9cb36743a338404ef900dd1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1212,7 +1211,7 @@ Transform:
   m_GameObject: {fileID: 854165854}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.4375, y: 0, z: 0}
-  m_LocalScale: {x: 0.125, y: 0.125, z: 1}
+  m_LocalScale: {x: 0.125, y: 0.175, z: 1}
   m_Children:
   - {fileID: 682599327}
   m_Father: {fileID: 159479430}
@@ -1370,7 +1369,7 @@ Transform:
   m_GameObject: {fileID: 895306369}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.3125, y: 0, z: 0}
-  m_LocalScale: {x: 0.125, y: 0.125, z: 1}
+  m_LocalScale: {x: 0.125, y: 0.175, z: 1}
   m_Children:
   - {fileID: 1373661026}
   m_Father: {fileID: 159479430}
@@ -1564,7 +1563,7 @@ Transform:
   m_GameObject: {fileID: 1005185666}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.5625, y: 0, z: 0}
-  m_LocalScale: {x: 0.125, y: 0.125, z: 1}
+  m_LocalScale: {x: 0.125, y: 0.175, z: 1}
   m_Children: []
   m_Father: {fileID: 159479430}
   m_RootOrder: 8
@@ -2008,7 +2007,7 @@ Transform:
   m_GameObject: {fileID: 1698325952}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.1875, y: 0, z: 0}
-  m_LocalScale: {x: 0.125, y: 0.125, z: 1}
+  m_LocalScale: {x: 0.125, y: 0.175, z: 1}
   m_Children:
   - {fileID: 1365489707}
   m_Father: {fileID: 159479430}
@@ -2105,7 +2104,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointValue: 7
-  intensityBoost: 0.03
+  intensityBoost: 0.02
   socket: {fileID: 1487968550}
   direction: -1
 --- !u!1 &1710861568
@@ -2193,7 +2192,7 @@ Transform:
   m_GameObject: {fileID: 1824767126}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.5625, y: 0, z: 0}
-  m_LocalScale: {x: 0.125, y: 0.125, z: 1}
+  m_LocalScale: {x: 0.125, y: 0.175, z: 1}
   m_Children: []
   m_Father: {fileID: 159479430}
   m_RootOrder: 7
@@ -2320,7 +2319,7 @@ Transform:
   m_GameObject: {fileID: 1978482716}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.3125, y: 0, z: 0}
-  m_LocalScale: {x: 0.125, y: 0.125, z: 1}
+  m_LocalScale: {x: 0.125, y: 0.175, z: 1}
   m_Children:
   - {fileID: 874419373}
   m_Father: {fileID: 159479430}

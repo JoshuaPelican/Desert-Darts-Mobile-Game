@@ -21,7 +21,7 @@ public class Spine : MonoBehaviour
     {
         if (collision.CompareTag("OutOfBounds"))
         {
-            SpineSpawnManager.instance.AdjustIntensity(MathUtility.Operation.Subtract, 0.075f);
+            SpineSpawnManager.instance.AdjustIntensity(MathUtility.Operation.Subtract, 0.06f);
             Disable();
         }
     }
