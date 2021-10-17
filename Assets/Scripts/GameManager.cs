@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
             instance = this;
         }
 
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
     #endregion
@@ -26,8 +26,12 @@ public class GameManager : MonoBehaviour
     float totalPoints = 0;
     float pointsMultiplier = 1;
 
+    float multiplierProgress = 1;
+
     [Header("Points Settings")]
+    [SerializeField] [Range(0, 1)]float missedSpineMultiplierLoss = 0.334f;
     [SerializeField] TextMeshProUGUI pointsTextMesh;
+    [SerializeField] TextMeshProUGUI multiplierTextMesh;
 
     [Header("Floating Text Settings")]
     [SerializeField] GameObject floatingText;
@@ -50,6 +54,7 @@ public class GameManager : MonoBehaviour
         totalPoints = MathUtility.ApplyOperation(operation, value, totalPoints);
 
         UpdateValueText(pointsTextMesh, totalPoints);
+        UpdateValueText(multiplierTextMesh, pointsMultiplier, "x");
     }
 
     // Takes in a a point value and a bool for if using the global multiplier. This version also takes in a position and color used for floating text popup
@@ -57,6 +62,11 @@ public class GameManager : MonoBehaviour
     public void ApplyPoints(float value, MathUtility.Operation operation, bool applyMultiplier, Vector3 floatingTextPosition, Color floatingTextColor)
     {
         ApplyPoints(value, operation, applyMultiplier);
+
+        if (applyMultiplier)
+        {
+            value *= pointsMultiplier;
+        }
 
         float pointsScale = ((value / pointsScaleMax) * scaleMax) + 1;
         string pointsString = "";
@@ -101,5 +111,38 @@ public class GameManager : MonoBehaviour
 
         FloatingText newFloatingText = newFloatingTextObject.GetComponent<FloatingText>();
         newFloatingText.SetText(text, color);
+    }
+
+    public void MissedSpine()
+    {
+        SpineSpawnManager.instance.AdjustIntensity(MathUtility.Operation.Multiply, missedSpineMultiplierLoss);
+
+        ClearAllSpines();
+
+        ChangeMultiplierProgress(-multiplierProgress + 1);
+        CalculatePointMultiplier();
+        UpdateValueText(multiplierTextMesh, pointsMultiplier, "x");
+    }
+
+    public void ClearAllSpines()
+    {
+        Spine[] allSpines = FindObjectsOfType<Spine>();
+
+        foreach (Spine spine in allSpines)
+        {
+            spine.ClearSpine();
+        }
+    }
+
+    public void ChangeMultiplierProgress(float progress)
+    {
+        multiplierProgress += progress;
+        CalculatePointMultiplier();
+    }
+
+
+    private void CalculatePointMultiplier()
+    {
+        pointsMultiplier = Mathf.RoundToInt(Mathf.Sqrt(multiplierProgress));
     }
 }

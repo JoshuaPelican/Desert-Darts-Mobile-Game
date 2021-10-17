@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Angled 5
   m_EditorClassIdentifier: 
   burstCount: 5
-  startDelay: 0.6
+  startDelay: 2
   angled: 1
   spinesPerBurst: 1
-  spineDelay: 0.75
+  spineDelay: 1.5

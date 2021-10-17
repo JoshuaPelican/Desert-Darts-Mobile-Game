@@ -14,4 +14,10 @@ public static class AudioUtility
         source.pitch = Random.Range(-randomPitchAmount, randomPitchAmount) + basePitch;
         source.PlayOneShot(clip, volume);
     }
+
+    public static void ValueDrivenSourceAndPlay(AudioClip clip, AudioSource source, float volume, float basePitch, float normalizedValue)
+    {
+        source.pitch = basePitch * normalizedValue;
+        source.PlayOneShot(clip, volume);
+    }
 }

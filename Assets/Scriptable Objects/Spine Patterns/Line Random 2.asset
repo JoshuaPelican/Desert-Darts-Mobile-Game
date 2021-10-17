@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Line Random 2
   m_EditorClassIdentifier: 
   burstCount: 4
-  startDelay: 0.6
+  startDelay: 2
   angled: 0
   spinesPerBurst: 2
-  spineDelay: 0.6
+  spineDelay: 1.2

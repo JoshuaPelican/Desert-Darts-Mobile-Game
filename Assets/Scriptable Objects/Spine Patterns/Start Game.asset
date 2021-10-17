@@ -15,5 +15,5 @@ MonoBehaviour:
   burstCount: 1
   startDelay: 2
   angled: 0
-  spinesPerBurst: 1
-  spineDelay: 0.6
+  spinesPerBurst: 5
+  spineDelay: 2

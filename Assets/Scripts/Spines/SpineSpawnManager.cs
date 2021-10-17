@@ -45,7 +45,7 @@ public class SpineSpawnManager : MonoBehaviour
 
     private void Update()
     {
-        float modGravity = Mathf.Lerp(spineGravity / (intensityStrength * 0.5f), spineGravity * (intensityStrength * 0.5f), intensity);
+        float modGravity = Mathf.Lerp(spineGravity, spineGravity * (intensityStrength * 0.75f), intensity);
         Physics2D.gravity = new Vector2(0, modGravity);
 
         if (!spawningPattern && patternDatabase.Length > 0)
@@ -59,7 +59,7 @@ public class SpineSpawnManager : MonoBehaviour
     {
         spawningPattern = true;
 
-        float modStartDelay = Mathf.Lerp(pattern.startDelay * intensityStrength, pattern.startDelay / (intensityStrength * 0.75f), intensity);
+        float modStartDelay = Mathf.Lerp(pattern.startDelay, pattern.startDelay / (intensityStrength * 0.75f), intensity);
         yield return new WaitForSeconds(modStartDelay);
 
         for (int i = 0; i < pattern.burstCount; i++)
@@ -78,7 +78,7 @@ public class SpineSpawnManager : MonoBehaviour
             {
                 SpawnSpine(randomPosition, angledDirection);
 
-                float modSpineDelay = Mathf.Lerp(pattern.spineDelay * (intensityStrength * 1.5f), pattern.spineDelay / (intensityStrength * 1.5f), intensity);
+                float modSpineDelay = Mathf.Lerp(pattern.spineDelay, pattern.spineDelay / (intensityStrength * 1.5f), intensity);
                 yield return new WaitForSeconds(modSpineDelay);
             }
         }

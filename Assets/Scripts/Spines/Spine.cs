@@ -6,6 +6,7 @@ public class Spine : MonoBehaviour
     public float pointMultiplier = 1;
 
     Rigidbody2D rig;
+    Collider2D col;
 
     AudioSource source;
     [Header("Audio Settings")]
@@ -14,6 +15,7 @@ public class Spine : MonoBehaviour
     private void Start()
     {
         rig = GetComponent<Rigidbody2D>();
+        col = GetComponent<Collider2D>();
         source = GetComponent<AudioSource>();
     }
 
@@ -26,20 +28,29 @@ public class Spine : MonoBehaviour
     {
         if (collision.CompareTag("OutOfBounds"))
         {
-            SpineSpawnManager.instance.AdjustIntensity(MathUtility.Operation.Subtract, 0.334f);
+            GameManager.instance.MissedSpine();
             Disable();
         }
     }
 
     public void PlayHitAudio(float bonusPitch)
     {
-        AudioUtility.RandomizeSourceAndPlay(clips, source, 1f, 1 + bonusPitch, 0.05f);
+        AudioUtility.RandomizeSourceAndPlay(clips, source, 0.4f, 1 + bonusPitch, 0.05f);
+    }
+
+    public void ClearSpine()
+    {
+        rig.velocity = Vector2.zero;
+        rig.AddForce(new Vector2(Random.value, Random.value) * 2, ForceMode2D.Impulse);
+        rig.AddTorque(1000);
+        Destroy(gameObject, 0.5f);
     }
 
     public void Disable()
     {
         rig.velocity = Vector2.zero;
         rig.isKinematic = true;
+        col.enabled = false;
         Destroy(gameObject, 1.5f);
     }
 }
