@@ -8,7 +8,6 @@ public class SpinePattern : ScriptableObject
     public float startDelay = 1f;
     [Space()]
     public bool angled;
-    //public bool ordered;
 
     [Header("Spawn Settings")]
     public int spinesPerBurst = 1;
