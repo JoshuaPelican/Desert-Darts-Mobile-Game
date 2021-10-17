@@ -7,9 +7,14 @@ public class Spine : MonoBehaviour
 
     Rigidbody2D rig;
 
+    AudioSource source;
+    [Header("Audio Settings")]
+    [SerializeField] AudioClip[] clips;
+
     private void Start()
     {
         rig = GetComponent<Rigidbody2D>();
+        source = GetComponent<AudioSource>();
     }
 
     private void FixedUpdate()
@@ -21,9 +26,14 @@ public class Spine : MonoBehaviour
     {
         if (collision.CompareTag("OutOfBounds"))
         {
-            SpineSpawnManager.instance.AdjustIntensity(MathUtility.Operation.Subtract, 0.06f);
+            SpineSpawnManager.instance.AdjustIntensity(MathUtility.Operation.Subtract, 0.334f);
             Disable();
         }
+    }
+
+    public void PlayHitAudio(float bonusPitch)
+    {
+        AudioUtility.RandomizeSourceAndPlay(clips, source, 1f, 1 + bonusPitch, 0.05f);
     }
 
     public void Disable()

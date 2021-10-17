@@ -32,9 +32,16 @@ public class SpineSpawnManager : MonoBehaviour
     [Header("Object Assignments")]
     [SerializeField] GameObject basicSpine;
 
+    [Header("Patterns")]
+    [SerializeField] SpinePattern startPattern;
     [SerializeField] SpinePattern[] patternDatabase;
 
     bool spawningPattern;
+
+    private void Start()
+    {
+        StartCoroutine(SpawnSpinePattern(startPattern));
+    }
 
     private void Update()
     {

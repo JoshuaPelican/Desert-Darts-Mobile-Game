@@ -6,12 +6,15 @@ public class TargetSection : MonoBehaviour
     [SerializeField] float intensityBoost = 0.01f;
     [SerializeField] Transform socket;
     [SerializeField] [Range(-1, 1)] int direction = 1;
+    [SerializeField] AudioClip sectionClip;
 
     Color sectionColor;
+    AudioSource source;
 
     private void Start()
     {
         sectionColor = GetComponent<SpriteRenderer>().color;
+        source = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -32,6 +35,8 @@ public class TargetSection : MonoBehaviour
             Spine spine = collision.gameObject.GetComponent<Spine>();
             collision.enabled = false;
 
+            //Make a noise or something
+
             //Do something with the points
             //Make a floating text with the points;
             GameManager.instance.ApplyPoints(pointValue * spine.pointMultiplier, MathUtility.Operation.Add, true, transform.position, sectionColor);
@@ -41,6 +46,8 @@ public class TargetSection : MonoBehaviour
 
             //Do something with the spine
             spine.transform.SetParent(transform);
+            AudioUtility.RandomizeSourceAndPlay(sectionClip, source, 0.75f, 3f, 0.01f);
+            spine.PlayHitAudio(pointValue / 20f);
             spine.Disable();
         }
     }
