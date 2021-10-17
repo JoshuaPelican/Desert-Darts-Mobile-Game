@@ -59,7 +59,7 @@ public class SpineSpawnManager : MonoBehaviour
     {
         spawningPattern = true;
 
-        float modStartDelay = Mathf.Lerp(pattern.startDelay, pattern.startDelay / (intensityStrength * 0.75f), intensity);
+        float modStartDelay = Mathf.Lerp(pattern.startDelay, pattern.startDelay / (intensityStrength), intensity);
         yield return new WaitForSeconds(modStartDelay);
 
         for (int i = 0; i < pattern.burstCount; i++)

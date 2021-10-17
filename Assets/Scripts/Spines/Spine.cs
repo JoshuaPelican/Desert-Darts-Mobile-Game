@@ -35,7 +35,7 @@ public class Spine : MonoBehaviour
 
     public void PlayHitAudio(float bonusPitch)
     {
-        AudioUtility.RandomizeSourceAndPlay(clips, source, 0.4f, 1 + bonusPitch, 0.05f);
+        AudioUtility.RandomizeSourceAndPlay(clips, source, 0.6f, 1 + bonusPitch, 0.05f);
     }
 
     public void ClearSpine()

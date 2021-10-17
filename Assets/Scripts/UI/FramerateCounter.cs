@@ -14,7 +14,7 @@ public class FramerateCounter : MonoBehaviour
     private void Start()
     {
         framerateCounter = GetComponent<TextMeshProUGUI>();
-        Application.targetFrameRate = 60;
+        Application.targetFrameRate = 120;
     }
 
 

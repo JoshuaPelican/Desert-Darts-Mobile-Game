@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     float multiplierProgress = 1;
 
     [Header("Points Settings")]
-    [SerializeField] [Range(0, 1)]float missedSpineMultiplierLoss = 0.334f;
+    [SerializeField] [Range(0, 1)]float missIntensityMultiplier = 0.667f;
     [SerializeField] TextMeshProUGUI pointsTextMesh;
     [SerializeField] TextMeshProUGUI multiplierTextMesh;
 
@@ -41,6 +41,40 @@ public class GameManager : MonoBehaviour
     [Space()]
     [SerializeField] float pointsScaleMax = 25f;
     [SerializeField] float scaleMax = 2f;
+
+    [Header("Pause Settings")]
+    [SerializeField] GameObject pausedPanel;
+    bool paused;
+
+    [Header("Audio Settings")]
+    [SerializeField] AudioClip missedSpineClip;
+    AudioSource source;
+
+    private void Start()
+    {
+        source = GetComponent<AudioSource>();
+    }
+
+    private void Update()
+    {
+        if(Input.touchCount > 0)
+        {
+            if (Input.GetTouch(0).phase == TouchPhase.Ended && !paused)
+            {
+                //Pause the game
+                paused = true;
+                pausedPanel.SetActive(true);
+                Time.timeScale = 0;
+            }
+            else if (Input.GetTouch(0).phase == TouchPhase.Ended && paused)
+            {
+                //Unpause the game
+                Time.timeScale = 1;
+                pausedPanel.SetActive(false);
+                paused = false;
+            }
+        }
+    }
 
     // Takes in a a point value and a bool for if using the global multiplier
     // Adds the point value to the total points count and uses multiplier if required
@@ -115,9 +149,11 @@ public class GameManager : MonoBehaviour
 
     public void MissedSpine()
     {
-        SpineSpawnManager.instance.AdjustIntensity(MathUtility.Operation.Multiply, missedSpineMultiplierLoss);
+        SpineSpawnManager.instance.AdjustIntensity(MathUtility.Operation.Multiply, missIntensityMultiplier);
 
         ClearAllSpines();
+
+        AudioUtility.RandomizeSourceAndPlay(missedSpineClip, source, 0.4f, 1, 0.05f);
 
         ChangeMultiplierProgress(-multiplierProgress + 1);
         CalculatePointMultiplier();
