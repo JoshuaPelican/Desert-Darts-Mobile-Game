@@ -23,6 +23,11 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
+    [Header("Timer Settings")]
+    [SerializeField] float maxTimerDuration;
+    float currentTimer;
+    [SerializeField] TextMeshProUGUI timerTextMesh;
+
     float totalPoints = 0;
     float pointsMultiplier = 1;
 
@@ -53,6 +58,8 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         source = GetComponent<AudioSource>();
+        //currentTimer = maxTimerDuration + Time.deltaTime;
+        //UpdateTimer();
     }
 
     private void Update()
@@ -74,6 +81,23 @@ public class GameManager : MonoBehaviour
                 paused = false;
             }
         }
+
+        //UpdateTimer();
+    }
+
+    private void UpdateTimer()
+    {
+        currentTimer -= Time.deltaTime;
+
+        if(currentTimer <= 0)
+        {
+
+        }
+
+        int minutes = Mathf.FloorToInt(currentTimer / 60);
+        int seconds = Mathf.FloorToInt(currentTimer % 60);
+
+        timerTextMesh.SetText(minutes + ":" + seconds);
     }
 
     // Takes in a a point value and a bool for if using the global multiplier

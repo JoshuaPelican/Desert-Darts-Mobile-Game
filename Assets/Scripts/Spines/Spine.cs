@@ -7,6 +7,7 @@ public class Spine : MonoBehaviour
 
     Rigidbody2D rig;
     Collider2D col;
+    Animator anim;
 
     AudioSource source;
     [Header("Audio Settings")]
@@ -16,6 +17,7 @@ public class Spine : MonoBehaviour
     {
         rig = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
+        anim = GetComponent<Animator>();
         source = GetComponent<AudioSource>();
     }
 
@@ -41,9 +43,11 @@ public class Spine : MonoBehaviour
     public void ClearSpine()
     {
         rig.velocity = Vector2.zero;
-        rig.AddForce(new Vector2(Random.value, Random.value) * 2, ForceMode2D.Impulse);
+        rig.gravityScale = 1.5f;
+        col.enabled = false;
+        anim.SetTrigger("Fade Short");
+        rig.AddForce(new Vector2((Random.value * 2) - 1, Random.value) * 2, ForceMode2D.Impulse);
         rig.AddTorque(1000);
-        Destroy(gameObject, 0.5f);
     }
 
     public void Disable()
@@ -51,6 +55,6 @@ public class Spine : MonoBehaviour
         rig.velocity = Vector2.zero;
         rig.isKinematic = true;
         col.enabled = false;
-        Destroy(gameObject, 1.5f);
+        anim.SetTrigger("Fade Long");
     }
 }
