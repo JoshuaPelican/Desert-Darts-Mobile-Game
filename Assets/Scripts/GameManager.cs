@@ -85,6 +85,7 @@ public class GameManager : MonoBehaviour
         //UpdateTimer();
     }
 
+    /*
     private void UpdateTimer()
     {
         currentTimer -= Time.deltaTime;
@@ -99,6 +100,7 @@ public class GameManager : MonoBehaviour
 
         timerTextMesh.SetText(minutes + ":" + seconds);
     }
+    */
 
     // Takes in a a point value and a bool for if using the global multiplier
     // Adds the point value to the total points count and uses multiplier if required
@@ -112,7 +114,6 @@ public class GameManager : MonoBehaviour
         totalPoints = MathUtility.ApplyOperation(operation, value, totalPoints);
 
         UpdateValueText(pointsTextMesh, totalPoints);
-        UpdateValueText(multiplierTextMesh, pointsMultiplier, "x");
     }
 
     // Takes in a a point value and a bool for if using the global multiplier. This version also takes in a position and color used for floating text popup
@@ -204,5 +205,6 @@ public class GameManager : MonoBehaviour
     private void CalculatePointMultiplier()
     {
         pointsMultiplier = Mathf.RoundToInt(Mathf.Sqrt(multiplierProgress));
+        UpdateValueText(multiplierTextMesh, pointsMultiplier, "x");
     }
 }

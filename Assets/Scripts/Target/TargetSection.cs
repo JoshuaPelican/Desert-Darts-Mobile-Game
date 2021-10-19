@@ -4,6 +4,7 @@ public class TargetSection : MonoBehaviour
 {
     [SerializeField] float pointValue = 1;
     [SerializeField] float intensityBoost = 0.01f;
+    [SerializeField] float multiplierBoost = 0f;
     [SerializeField] Transform socket;
     [SerializeField] [Range(-1, 1)] int direction = 1;
     [SerializeField] AudioClip sectionClip;
@@ -40,7 +41,7 @@ public class TargetSection : MonoBehaviour
             //Do something with the points
             //Make a floating text with the points;
             GameManager.instance.ApplyPoints(pointValue * spine.pointMultiplier, MathUtility.Operation.Add, true, transform.position, sectionColor);
-            GameManager.instance.ChangeMultiplierProgress(pointValue / 27f);
+            GameManager.instance.ChangeMultiplierProgress(multiplierBoost);
 
             //Increase spawn intensity
             SpineSpawnManager.instance.AdjustIntensity(MathUtility.Operation.Add, intensityBoost);

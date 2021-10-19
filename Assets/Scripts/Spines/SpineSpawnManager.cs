@@ -27,7 +27,16 @@ public class SpineSpawnManager : MonoBehaviour
     [SerializeField] float spawnHeight = 5;
 
     float intensity = 0;
+    [Header("Intensity Settings")]
     [SerializeField] float intensityStrength = 2;
+    [SerializeField] [Range(0, 0.02f)] float intensityTimeFactor = 0.125f;
+
+    [Space()]
+
+    [SerializeField] float gravityIntensityMultiplier = 0.75f;
+    [SerializeField] float startDelayIntensityMultiplier = 1.5f;
+    [SerializeField] float spineDelayIntensityMultiplier = 1.5f;
+
 
     [Header("Object Assignments")]
     [SerializeField] GameObject basicSpine;
@@ -45,7 +54,11 @@ public class SpineSpawnManager : MonoBehaviour
 
     private void Update()
     {
-        float modGravity = Mathf.Lerp(spineGravity, spineGravity * (intensityStrength * 0.75f), intensity);
+        AdjustIntensity(MathUtility.Operation.Add, Time.deltaTime * intensityTimeFactor);
+
+        Debug.Log(intensity);
+
+        float modGravity = Mathf.Lerp(spineGravity, spineGravity * (intensityStrength * gravityIntensityMultiplier), intensity);
         Physics2D.gravity = new Vector2(0, modGravity);
 
         if (!spawningPattern && patternDatabase.Length > 0)
@@ -59,7 +72,7 @@ public class SpineSpawnManager : MonoBehaviour
     {
         spawningPattern = true;
 
-        float modStartDelay = Mathf.Lerp(pattern.startDelay, pattern.startDelay / (intensityStrength), intensity);
+        float modStartDelay = Mathf.Lerp(pattern.startDelay, pattern.startDelay / (intensityStrength * startDelayIntensityMultiplier), intensity);
         yield return new WaitForSeconds(modStartDelay);
 
         for (int i = 0; i < pattern.burstCount; i++)
@@ -78,7 +91,7 @@ public class SpineSpawnManager : MonoBehaviour
             {
                 SpawnSpine(randomPosition, angledDirection);
 
-                float modSpineDelay = Mathf.Lerp(pattern.spineDelay, pattern.spineDelay / (intensityStrength * 1.5f), intensity);
+                float modSpineDelay = Mathf.Lerp(pattern.spineDelay, pattern.spineDelay / (intensityStrength * spineDelayIntensityMultiplier), intensity);
                 yield return new WaitForSeconds(modSpineDelay);
             }
         }
