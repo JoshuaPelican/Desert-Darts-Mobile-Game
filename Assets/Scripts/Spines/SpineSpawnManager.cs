@@ -56,7 +56,7 @@ public class SpineSpawnManager : MonoBehaviour
     {
         AdjustIntensity(MathUtility.Operation.Add, Time.deltaTime * intensityTimeFactor);
 
-        Debug.Log(intensity);
+        //Debug.Log(intensity);
 
         float modGravity = Mathf.Lerp(spineGravity, spineGravity * (intensityStrength * gravityIntensityMultiplier), intensity);
         Physics2D.gravity = new Vector2(0, modGravity);
@@ -66,6 +66,12 @@ public class SpineSpawnManager : MonoBehaviour
             SpinePattern nextSpinePattern = patternDatabase[Random.Range(0, patternDatabase.Length)];
             StartCoroutine(SpawnSpinePattern(nextSpinePattern));
         }
+    }
+
+    public void ClearCurrentPattern()
+    {
+        StopAllCoroutines();
+        spawningPattern = false;
     }
 
     private IEnumerator SpawnSpinePattern(SpinePattern pattern)

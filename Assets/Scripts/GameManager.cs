@@ -175,10 +175,11 @@ public class GameManager : MonoBehaviour
     public void MissedSpine()
     {
         SpineSpawnManager.instance.AdjustIntensity(MathUtility.Operation.Multiply, missIntensityMultiplier);
+        SpineSpawnManager.instance.ClearCurrentPattern();
 
         ClearAllSpines();
 
-        AudioUtility.RandomizeSourceAndPlay(missedSpineClip, source, 0.4f, 1, 0.05f);
+        AudioUtility.RandomizeSourceAndPlay(missedSpineClip, source, 0.65f, 1, 0.05f);
 
         ChangeMultiplierProgress(-multiplierProgress + 1);
         CalculatePointMultiplier();
