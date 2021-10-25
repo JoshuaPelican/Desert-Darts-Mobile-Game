@@ -1,6 +1,6 @@
 # Desert Darts Mobile
 
-### Endless Mode
+## Endless Mode
 
 **TODO**
 Add max distance value for spines to spawn away from each other
@@ -29,7 +29,7 @@ Raise volume on normal spine hit
 
 On spine miss, delete current spine pattern to prevent instant spawns, giving delay to player
 
-##### End Condition
+### End Condition
 
 **Ideas**
 
@@ -43,14 +43,14 @@ Could be a time based mode, given the multiplicative nature of Intensity this co
 	- Short games = easy to pickup
 	
 	
-### Inspirations	
+## Inspirations	
 
 Color Palette: https://juiceboxinteractive.com/blog/color/ 
 						https://br.pinterest.com/pin/821132944538033803/
 
 
 
-### Attributions
+## Attributions
 
 **Sound Effects**
 
