@@ -192,7 +192,7 @@ public class GameManager : MonoBehaviour
 
         foreach (Spine spine in allSpines)
         {
-            spine.ClearSpine();
+            spine.Clear();
         }
     }
 

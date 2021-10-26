@@ -15,6 +15,7 @@ public class Spine : MonoBehaviour
 
     private void Start()
     {
+        //Assign all the references
         rig = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
         anim = GetComponent<Animator>();
@@ -23,24 +24,24 @@ public class Spine : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rig.AddForce(-transform.up * Physics2D.gravity.magnitude, ForceMode2D.Force);
+        rig.AddForce(-transform.up * Physics2D.gravity.magnitude, ForceMode2D.Force); //Constantly move downwards using gravity instead of normal rigidbody2d calculations
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision) 
     {
-        if (collision.CompareTag("OutOfBounds"))
+        if (collision.CompareTag("OutOfBounds")) //If the spine becomes out of bounds, notify the game a spine has been missed and disable this spine
         {
             GameManager.instance.MissedSpine();
             Disable();
         }
     }
 
-    public void PlayHitAudio(float bonusPitch)
+    public void PlayHitAudio(float bonusPitch) //Event to play the spine's impact audio; Called by the 
     {
         AudioUtility.RandomizeSourceAndPlay(clips, source, 0.95f, 1 + bonusPitch, 0.05f);
     }
 
-    public void ClearSpine()
+    public void Clear() //Make the spine useless and spin it out of existence over a short time
     {
         rig.velocity = Vector2.zero;
         rig.gravityScale = 1.5f;
@@ -50,7 +51,7 @@ public class Spine : MonoBehaviour
         rig.AddTorque(1000);
     }
 
-    public void Disable()
+    public void Disable() //Prevent the spine from moving and fade it out over a long time
     {
         rig.velocity = Vector2.zero;
         rig.isKinematic = true;

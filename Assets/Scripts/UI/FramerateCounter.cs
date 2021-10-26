@@ -1,4 +1,6 @@
 // https://answers.unity.com/questions/46745/how-do-i-find-the-frames-per-second-of-my-game.html
+// Used to display the framerate of the device while testing builds
+// This should not be used in the final release
 using UnityEngine;
 using TMPro;
 
