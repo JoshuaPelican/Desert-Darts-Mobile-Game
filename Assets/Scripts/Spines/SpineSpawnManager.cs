@@ -47,11 +47,6 @@ public class SpineSpawnManager : MonoBehaviour
 
     bool spawningPattern;
 
-    private void Start()
-    {
-        StartCoroutine(SpawnSpinePattern(startPattern)); //Start the spines spawning when the scene loads
-    }
-
     private void Update() 
     {
         AdjustIntensity(MathUtility.Operation.Add, Time.deltaTime * intensityTimeFactor); //Over time the intensity increases at a fixed rate
@@ -67,6 +62,12 @@ public class SpineSpawnManager : MonoBehaviour
             SpinePattern nextSpinePattern = patternDatabase[Random.Range(0, patternDatabase.Length)];
             StartCoroutine(SpawnSpinePattern(nextSpinePattern));
         }
+    }
+
+    public void StartSpawning()
+    {
+        StopAllCoroutines();
+        StartCoroutine(SpawnSpinePattern(startPattern)); //Start the spines spawning when the scene loads
     }
 
     public void ClearCurrentPattern() //Removes the current pattern and stops it from spawning

@@ -1,5 +1,5 @@
 using UnityEngine;
-using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,25 +18,18 @@ public class GameManager : MonoBehaviour
             instance = this;
         }
 
-        //DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject);
     }
 
     #endregion
 
-    [Header("Timer Settings")]
-    [SerializeField] float maxTimerDuration;
-    float currentTimer;
-    [SerializeField] TextMeshProUGUI timerTextMesh;
-
-    float totalPoints = 0;
-    float pointsMultiplier = 1;
-
-    float multiplierProgress = 1;
-
     [Header("Points Settings")]
     [SerializeField] [Range(0, 1)]float missIntensityMultiplier = 0.667f;
-    [SerializeField] TextMeshProUGUI pointsTextMesh;
-    [SerializeField] TextMeshProUGUI multiplierTextMesh;
+    float totalPoints = 0;
+    float pointsMultiplier = 1;
+    float multiplierProgress = 1;
+
+    SaveDataManager saveDataManager;
 
     [Header("Floating Text Settings")]
     [SerializeField] GameObject floatingText;
@@ -47,9 +40,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] float pointsScaleMax = 25f;
     [SerializeField] float scaleMax = 2f;
 
-    [Header("Pause Settings")]
-    [SerializeField] GameObject pausedPanel;
-    bool paused;
+    UIManager uiManager;
 
     [Header("Audio Settings")]
     [SerializeField] AudioClip missedSpineClip;
@@ -58,62 +49,29 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         source = GetComponent<AudioSource>();
-        //currentTimer = maxTimerDuration + Time.deltaTime;
-        //UpdateTimer();
+        uiManager = UIManager.instance;
+        saveDataManager = SaveDataManager.instance;
+
+        SceneManager.sceneLoaded += StartGame;
     }
 
-    private void Update()
+    private void StartGame(Scene scene, LoadSceneMode loadSceneMode)
     {
-        if(Input.touchCount > 0)
+        if(scene.name == "Main")
         {
-            if (Input.GetTouch(0).phase == TouchPhase.Ended && !paused)
-            {
-                //Pause the game
-                paused = true;
-                pausedPanel.SetActive(true);
-                Time.timeScale = 0;
-            }
-            else if (Input.GetTouch(0).phase == TouchPhase.Ended && paused)
-            {
-                //Unpause the game
-                Time.timeScale = 1;
-                pausedPanel.SetActive(false);
-                paused = false;
-            }
+            SpineSpawnManager.instance.StartSpawning();
         }
-
-        //UpdateTimer();
     }
-
-    /*
-    private void UpdateTimer()
-    {
-        currentTimer -= Time.deltaTime;
-
-        if(currentTimer <= 0)
-        {
-
-        }
-
-        int minutes = Mathf.FloorToInt(currentTimer / 60);
-        int seconds = Mathf.FloorToInt(currentTimer % 60);
-
-        timerTextMesh.SetText(minutes + ":" + seconds);
-    }
-    */
 
     // Takes in a a point value and a bool for if using the global multiplier
     // Adds the point value to the total points count and uses multiplier if required
     public void ApplyPoints(float value, MathUtility.Operation operation, bool applyMultiplier)
     {
         if (applyMultiplier)
-        {
             value *= pointsMultiplier;
-        }
 
         totalPoints = MathUtility.ApplyOperation(operation, value, totalPoints);
-
-        UpdateValueText(pointsTextMesh, totalPoints);
+        uiManager.SetValueTextMesh(UIManager.TextType.Points, totalPoints);
     }
 
     // Takes in a a point value and a bool for if using the global multiplier. This version also takes in a position and color used for floating text popup
@@ -123,9 +81,7 @@ public class GameManager : MonoBehaviour
         ApplyPoints(value, operation, applyMultiplier);
 
         if (applyMultiplier)
-        {
             value *= pointsMultiplier;
-        }
 
         float pointsScale = ((value / pointsScaleMax) * scaleMax) + 1;
         string pointsString = "";
@@ -153,11 +109,6 @@ public class GameManager : MonoBehaviour
         DisplayFloatingText(pointsString, floatingTextPosition, pointsScale, floatingTextColor);
     }
 
-    private void UpdateValueText(TextMeshProUGUI textMesh, float value, string prefix = "", string suffix = "", string valueFormat = "F0")
-    {
-        textMesh.text = prefix + value.ToString(valueFormat) + suffix;
-    }
-
     //Takes in a position, a base scale miltiplier and a text string
     //Places floating text at the position with the givent text string. Randomly adjusts position, rotation and scales the text based on global random ranges
     public void DisplayFloatingText(string text, Vector2 position, float scale, Color color)
@@ -183,7 +134,9 @@ public class GameManager : MonoBehaviour
 
         ChangeMultiplierProgress(-multiplierProgress + 1);
         CalculatePointMultiplier();
-        UpdateValueText(multiplierTextMesh, pointsMultiplier, "x");
+        uiManager.SetValueTextMesh(UIManager.TextType.Multiplier, pointsMultiplier, "x");
+
+        CheckHighscoreAndSort(totalPoints);
     }
 
     public void ClearAllSpines()
@@ -202,10 +155,43 @@ public class GameManager : MonoBehaviour
         CalculatePointMultiplier();
     }
 
-
     private void CalculatePointMultiplier()
     {
         pointsMultiplier = Mathf.RoundToInt(Mathf.Sqrt(multiplierProgress));
-        UpdateValueText(multiplierTextMesh, pointsMultiplier, "x");
+        uiManager.SetValueTextMesh(UIManager.TextType.Multiplier, pointsMultiplier, "x");
+    }
+
+    private void CheckHighscoreAndSort(float totalPoints)
+    {
+        float[] highscores = saveDataManager.Highscores;
+
+        int index = 0;
+
+        for (int i = 0; i < highscores.Length; i++)
+        {
+            if(totalPoints > highscores[i])
+            {
+                index = i;
+                break;
+            }
+        }
+
+        int j = 0;
+
+        for (int i = 0; i < highscores.Length; i++)
+        {
+            if(i == index)
+            {
+                highscores[i] = totalPoints;
+            }
+            else
+            {
+                highscores[i] = saveDataManager.Highscores[j];
+                j++;
+            }
+        }
+
+        Debug.Log(highscores[0] + " ," + highscores[1] + " ," + highscores[2] + " ," + highscores[3] + " ," + highscores[4]);
+        saveDataManager.Highscores = highscores;
     }
 }
