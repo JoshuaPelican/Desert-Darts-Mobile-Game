@@ -40,8 +40,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] float pointsScaleMax = 25f;
     [SerializeField] float scaleMax = 2f;
 
-    UIManager uiManager;
-
     [Header("Audio Settings")]
     [SerializeField] AudioClip missedSpineClip;
     AudioSource source;
@@ -49,7 +47,6 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         source = GetComponent<AudioSource>();
-        uiManager = UIManager.instance;
         saveDataManager = SaveDataManager.instance;
 
         SceneManager.sceneLoaded += StartGame;
@@ -71,7 +68,7 @@ public class GameManager : MonoBehaviour
             value *= pointsMultiplier;
 
         totalPoints = MathUtility.ApplyOperation(operation, value, totalPoints);
-        uiManager.SetValueTextMesh(UIManager.TextType.Points, totalPoints);
+        UIManager.instance.SetValueTextMesh(UIManager.TextType.Points, totalPoints);
     }
 
     // Takes in a a point value and a bool for if using the global multiplier. This version also takes in a position and color used for floating text popup
@@ -134,7 +131,7 @@ public class GameManager : MonoBehaviour
 
         ChangeMultiplierProgress(-multiplierProgress + 1);
         CalculatePointMultiplier();
-        uiManager.SetValueTextMesh(UIManager.TextType.Multiplier, pointsMultiplier, "x");
+        UIManager.instance.SetValueTextMesh(UIManager.TextType.Multiplier, pointsMultiplier, "x");
 
         CheckHighscoreAndSort(totalPoints);
     }
@@ -158,7 +155,7 @@ public class GameManager : MonoBehaviour
     private void CalculatePointMultiplier()
     {
         pointsMultiplier = Mathf.RoundToInt(Mathf.Sqrt(multiplierProgress));
-        uiManager.SetValueTextMesh(UIManager.TextType.Multiplier, pointsMultiplier, "x");
+        UIManager.instance.SetValueTextMesh(UIManager.TextType.Multiplier, pointsMultiplier, "x");
     }
 
     private void CheckHighscoreAndSort(float totalPoints)
@@ -189,6 +186,7 @@ public class GameManager : MonoBehaviour
                 highscores[i] = saveDataManager.Highscores[j];
                 j++;
             }
+            Debug.Log(highscores[i]);
         }
 
         Debug.Log(highscores[0] + " ," + highscores[1] + " ," + highscores[2] + " ," + highscores[3] + " ," + highscores[4]);
