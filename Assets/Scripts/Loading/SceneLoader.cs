@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class SceneLoader : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class SceneLoader : MonoBehaviour
 
     Animator anim;
     [SerializeField] AudioClip transitionClip;
+    [SerializeField] AudioMixer masterMixer;
 
     private void Start()
     {
@@ -27,10 +29,10 @@ public class SceneLoader : MonoBehaviour
 
     private IEnumerator SceneTransition(string sceneName) //Plays a transition before loading the scene
     {
+        GenerateTransitionAudio();
+
         anim.SetTrigger("StartFade");
         anim.speed = 0.75f / transitionDuration;
-
-        GenerateTransitionAudio();
 
         yield return new WaitForSeconds(transitionDuration);
         SceneManager.LoadScene(sceneName);
@@ -39,15 +41,11 @@ public class SceneLoader : MonoBehaviour
     private void GenerateTransitionAudio()
     {
         GameObject tempAudio = new GameObject("Gust Audio", typeof(AudioSource));
-        AudioSource gustSource = tempAudio.GetComponent<AudioSource>();
-        gustSource.playOnAwake = false;
-        gustSource.loop = false;
-        gustSource.volume = 0.5f;
-        gustSource.clip = transitionClip;
+        AudioSource transitionSource = tempAudio.GetComponent<AudioSource>();
+        transitionSource.outputAudioMixerGroup = masterMixer.FindMatchingGroups("Effects")[0];
 
         Instantiate(tempAudio);
-        gustSource.Play();
-
+        AudioUtility.RandomizeSourceAndPlay(transitionClip, transitionSource, 0.4f, 1, 0.05f);
 
         DontDestroyOnLoad(tempAudio);
         Destroy(tempAudio, 4f);

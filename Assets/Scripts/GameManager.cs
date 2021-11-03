@@ -23,6 +23,10 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
+    [Header("Gameplay Settings")]
+    [SerializeField] int maxLives;
+    int currentLives;
+
     [Header("Points Settings")]
     [SerializeField] [Range(0, 1)]float missIntensityMultiplier = 0.667f;
     float totalPoints = 0;
@@ -132,8 +136,6 @@ public class GameManager : MonoBehaviour
         ChangeMultiplierProgress(-multiplierProgress + 1);
         CalculatePointMultiplier();
         UIManager.instance.SetValueTextMesh(UIManager.TextType.Multiplier, pointsMultiplier, "x");
-
-        CheckHighscoreAndSort(totalPoints);
     }
 
     public void ClearAllSpines()
@@ -160,7 +162,8 @@ public class GameManager : MonoBehaviour
 
     private void CheckHighscoreAndSort(float totalPoints)
     {
-        float[] highscores = saveDataManager.Highscores;
+        float[] highscores = new float[5];
+        saveDataManager.Highscores.CopyTo(highscores, 0);
 
         int index = 0;
 
@@ -186,10 +189,9 @@ public class GameManager : MonoBehaviour
                 highscores[i] = saveDataManager.Highscores[j];
                 j++;
             }
-            Debug.Log(highscores[i]);
         }
 
-        Debug.Log(highscores[0] + " ," + highscores[1] + " ," + highscores[2] + " ," + highscores[3] + " ," + highscores[4]);
-        saveDataManager.Highscores = highscores;
+        //Debug.Log(highscores[0] + " ," + highscores[1] + " ," + highscores[2] + " ," + highscores[3] + " ," + highscores[4]);
+        highscores.CopyTo(saveDataManager.Highscores, 0);
     }
 }

@@ -123,68 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &10410307
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 544997923}
-    m_Modifications:
-    - target: {fileID: 2427808367758055842, guid: c9fcfe89df76b374c9ecfef9e03bba07, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2427808367758055842, guid: c9fcfe89df76b374c9ecfef9e03bba07, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -20
-      objectReference: {fileID: 0}
-    - target: {fileID: 2427808367758055842, guid: c9fcfe89df76b374c9ecfef9e03bba07, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 25.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 2427808367758055842, guid: c9fcfe89df76b374c9ecfef9e03bba07, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2427808367758055842, guid: c9fcfe89df76b374c9ecfef9e03bba07, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2427808367758055842, guid: c9fcfe89df76b374c9ecfef9e03bba07, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2427808367758055842, guid: c9fcfe89df76b374c9ecfef9e03bba07, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2427808367758055842, guid: c9fcfe89df76b374c9ecfef9e03bba07, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2427808367758055842, guid: c9fcfe89df76b374c9ecfef9e03bba07, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2427808367758055842, guid: c9fcfe89df76b374c9ecfef9e03bba07, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2427808367758055842, guid: c9fcfe89df76b374c9ecfef9e03bba07, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2427808367758055843, guid: c9fcfe89df76b374c9ecfef9e03bba07, type: 3}
-      propertyPath: m_Name
-      value: Floating Text
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: c9fcfe89df76b374c9ecfef9e03bba07, type: 3}
---- !u!4 &10410308 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2427808367758055842, guid: c9fcfe89df76b374c9ecfef9e03bba07, type: 3}
-  m_PrefabInstance: {fileID: 10410307}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &111255105
 GameObject:
   m_ObjectHideFlags: 0
@@ -1350,6 +1288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47fbff8ddce32d442853b803b5bdfad4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxLives: 0
   missIntensityMultiplier: 0.6666667
   floatingText: {fileID: 2427808367758055843, guid: c9fcfe89df76b374c9ecfef9e03bba07, type: 3}
   positionRange: {x: -0.2, y: 0.2}
@@ -1367,8 +1306,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 10410308}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1381,10 +1319,10 @@ AudioSource:
   m_GameObject: {fileID: 544997920}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -6810837915372454663, guid: 4f35c22dfb34792449f0c94183a90730, type: 2}
   m_audioClip: {fileID: 8300000, guid: c734318916a3a2342b7f339bb1c9630b, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.5
+  m_Volume: 0.6
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1477,10 +1415,10 @@ AudioSource:
   m_GameObject: {fileID: 544997920}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -6810837915372454663, guid: 4f35c22dfb34792449f0c94183a90730, type: 2}
   m_audioClip: {fileID: 8300000, guid: 20b44070d9d25984f9599816545ce42a, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.1
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1577,6 +1515,8 @@ GameObject:
   - component: {fileID: 591438856}
   - component: {fileID: 591438855}
   - component: {fileID: 591438854}
+  - component: {fileID: 591438858}
+  - component: {fileID: 591438859}
   m_Layer: 5
   m_Name: Music Off
   m_TagString: Untagged
@@ -1635,7 +1575,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -1665,7 +1605,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 591438856}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 591438859}
+        m_TargetAssemblyTypeName: AudioEvents, Assembly-CSharp
+        m_MethodName: MuteMusic
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 591438858}
+        m_TargetAssemblyTypeName: DisableEnableEvent, Assembly-CSharp
+        m_MethodName: DisableEnable
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1805320891}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &591438856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1704,6 +1668,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 591438852}
   m_CullTransparentMesh: 1
+--- !u!114 &591438858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 591438852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f05712bb10bb7a74883837f3e2d83083, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &591438859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 591438852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df0d1d0d04c7e474da9c124a934e6dfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  masterMixer: {fileID: 24100000, guid: 4f35c22dfb34792449f0c94183a90730, type: 2}
 --- !u!1 &690449600
 GameObject:
   m_ObjectHideFlags: 0
@@ -2078,13 +2067,15 @@ GameObject:
   - component: {fileID: 738978748}
   - component: {fileID: 738978747}
   - component: {fileID: 738978746}
+  - component: {fileID: 738978750}
+  - component: {fileID: 738978751}
   m_Layer: 5
   m_Name: SFX On
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &738978745
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2136,7 +2127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -2166,7 +2157,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 738978748}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 591438859}
+        m_TargetAssemblyTypeName: AudioEvents, Assembly-CSharp
+        m_MethodName: MuteEffects
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 591438858}
+        m_TargetAssemblyTypeName: DisableEnableEvent, Assembly-CSharp
+        m_MethodName: DisableEnable
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 995521126}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &738978748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2205,6 +2220,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 738978744}
   m_CullTransparentMesh: 1
+--- !u!114 &738978750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 738978744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f05712bb10bb7a74883837f3e2d83083, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &738978751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 738978744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df0d1d0d04c7e474da9c124a934e6dfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  masterMixer: {fileID: 24100000, guid: 4f35c22dfb34792449f0c94183a90730, type: 2}
 --- !u!1 &753974559
 GameObject:
   m_ObjectHideFlags: 0
@@ -3062,6 +3102,8 @@ GameObject:
   - component: {fileID: 995521130}
   - component: {fileID: 995521129}
   - component: {fileID: 995521128}
+  - component: {fileID: 995521132}
+  - component: {fileID: 995521133}
   m_Layer: 5
   m_Name: SFX Off
   m_TagString: Untagged
@@ -3120,7 +3162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -3150,7 +3192,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 995521130}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 591438859}
+        m_TargetAssemblyTypeName: AudioEvents, Assembly-CSharp
+        m_MethodName: MuteEffects
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 591438858}
+        m_TargetAssemblyTypeName: DisableEnableEvent, Assembly-CSharp
+        m_MethodName: DisableEnable
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 738978744}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &995521130
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3189,6 +3255,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 995521126}
   m_CullTransparentMesh: 1
+--- !u!114 &995521132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 995521126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f05712bb10bb7a74883837f3e2d83083, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &995521133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 995521126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df0d1d0d04c7e474da9c124a934e6dfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  masterMixer: {fileID: 24100000, guid: 4f35c22dfb34792449f0c94183a90730, type: 2}
 --- !u!1 &1003762874
 GameObject:
   m_ObjectHideFlags: 0
@@ -3603,8 +3694,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 115.5}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -2.909912, y: -38.33008}
-  m_SizeDelta: {x: 1198.5, y: 102.05005}
+  m_AnchoredPosition: {x: -2.909912, y: 0.7998047}
+  m_SizeDelta: {x: 1257.9, y: 102.05}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1257158698
 MonoBehaviour:
@@ -3696,7 +3787,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -4216,13 +4307,15 @@ GameObject:
   - component: {fileID: 1805320895}
   - component: {fileID: 1805320894}
   - component: {fileID: 1805320893}
+  - component: {fileID: 1805320897}
+  - component: {fileID: 1805320898}
   m_Layer: 5
   m_Name: Music On
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1805320892
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4274,7 +4367,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -4304,7 +4397,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1805320895}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 591438859}
+        m_TargetAssemblyTypeName: AudioEvents, Assembly-CSharp
+        m_MethodName: MuteMusic
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 591438858}
+        m_TargetAssemblyTypeName: DisableEnableEvent, Assembly-CSharp
+        m_MethodName: DisableEnable
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 591438852}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1805320895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4343,6 +4460,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1805320891}
   m_CullTransparentMesh: 1
+--- !u!114 &1805320897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1805320891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f05712bb10bb7a74883837f3e2d83083, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1805320898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1805320891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df0d1d0d04c7e474da9c124a934e6dfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  masterMixer: {fileID: 24100000, guid: 4f35c22dfb34792449f0c94183a90730, type: 2}
 --- !u!1 &1830957697
 GameObject:
   m_ObjectHideFlags: 0
