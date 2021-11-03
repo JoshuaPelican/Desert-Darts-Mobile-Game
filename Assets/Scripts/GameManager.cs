@@ -24,11 +24,13 @@ public class GameManager : MonoBehaviour
     #endregion
 
     [Header("Gameplay Settings")]
-    [SerializeField] int maxLives;
+    [SerializeField] int maxLives = 3;
     int currentLives;
 
+    public Difficulty difficulty;
+
     [Header("Points Settings")]
-    [SerializeField] [Range(0, 1)]float missIntensityMultiplier = 0.667f;
+    [SerializeField] [Range(0, 1)] float missIntensityMultiplier = 0.667f;
     float totalPoints = 0;
     float pointsMultiplier = 1;
     float multiplierProgress = 1;
@@ -60,7 +62,14 @@ public class GameManager : MonoBehaviour
     {
         if(scene.name == "Main")
         {
+            currentLives = maxLives;
+            SpineSpawnManager.instance.SetDifficulty(difficulty);
             SpineSpawnManager.instance.StartSpawning();
+
+            foreach (GameObject targetSection in GameObject.FindGameObjectsWithTag("TargetSection"))
+            {
+                targetSection.transform.localScale = new Vector3(targetSection.transform.localScale.x * difficulty.targetScale, targetSection.transform.localScale.y, targetSection.transform.localScale.z);
+            }
         }
     }
 
@@ -71,7 +80,7 @@ public class GameManager : MonoBehaviour
         if (applyMultiplier)
             value *= pointsMultiplier;
 
-        totalPoints = MathUtility.ApplyOperation(operation, value, totalPoints);
+        totalPoints = MathUtility.ApplyOperation(operation, totalPoints, value);
         UIManager.instance.SetValueTextMesh(UIManager.TextType.Points, totalPoints);
     }
 
@@ -136,6 +145,8 @@ public class GameManager : MonoBehaviour
         ChangeMultiplierProgress(-multiplierProgress + 1);
         CalculatePointMultiplier();
         UIManager.instance.SetValueTextMesh(UIManager.TextType.Multiplier, pointsMultiplier, "x");
+
+        AdjustLives(MathUtility.Operation.Subtract, 1);
     }
 
     public void ClearAllSpines()
@@ -160,7 +171,7 @@ public class GameManager : MonoBehaviour
         UIManager.instance.SetValueTextMesh(UIManager.TextType.Multiplier, pointsMultiplier, "x");
     }
 
-    private void CheckHighscoreAndSort(float totalPoints)
+    private void CheckHighscoreAndSort(float points)
     {
         float[] highscores = new float[5];
         saveDataManager.Highscores.CopyTo(highscores, 0);
@@ -169,7 +180,7 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < highscores.Length; i++)
         {
-            if(totalPoints > highscores[i])
+            if(points > highscores[i])
             {
                 index = i;
                 break;
@@ -182,7 +193,7 @@ public class GameManager : MonoBehaviour
         {
             if(i == index)
             {
-                highscores[i] = totalPoints;
+                highscores[i] = points;
             }
             else
             {
@@ -193,5 +204,28 @@ public class GameManager : MonoBehaviour
 
         //Debug.Log(highscores[0] + " ," + highscores[1] + " ," + highscores[2] + " ," + highscores[3] + " ," + highscores[4]);
         highscores.CopyTo(saveDataManager.Highscores, 0);
+    }
+
+    private void AdjustLives(MathUtility.Operation operation, float amount)
+    {
+        MathUtility.ApplyOperation(operation, currentLives, amount);
+
+        if (currentLives <= 0)
+        {
+            GameOver();
+        }
+    }
+
+    private void GameOver()
+    {
+        CheckHighscoreAndSort(totalPoints);
+        //Game Over Screen
+    }
+
+    public void SetDifficulty(Difficulty difficultyToSet)
+    {
+        maxLives = difficulty.maxLives;
+
+        difficulty = difficultyToSet;
     }
 }

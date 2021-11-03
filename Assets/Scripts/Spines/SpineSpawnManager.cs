@@ -27,16 +27,12 @@ public class SpineSpawnManager : MonoBehaviour
     [SerializeField] float spawnHeight = 5;
 
     float intensity = 0;
-    [Header("Intensity Settings")]
-    [SerializeField] float intensityStrength = 2;
-    [SerializeField] [Range(0, 0.02f)] float intensityTimeFactor = 0.125f;
+    float intensityStrength = 2;
+    float intensityTimeFactor = 0.125f;
 
-    [Space()]
-
-    [SerializeField] float gravityIntensityMultiplier = 0.75f;
-    [SerializeField] float startDelayIntensityMultiplier = 1.5f;
-    [SerializeField] float spineDelayIntensityMultiplier = 1.5f;
-
+    float gravityIntensityMultiplier = 0.75f;
+    float startDelayIntensityMultiplier = 1.5f;
+    float spineDelayIntensityMultiplier = 1.5f;
 
     [Header("Object Assignments")]
     [SerializeField] GameObject basicSpine;
@@ -46,6 +42,12 @@ public class SpineSpawnManager : MonoBehaviour
     [SerializeField] SpinePattern[] patternDatabase;
 
     bool spawningPattern;
+
+    public void StartSpawning()
+    {
+        StopAllCoroutines();
+        StartCoroutine(SpawnSpinePattern(startPattern)); //Start the spines spawning when the scene loads
+    }
 
     private void Update() 
     {
@@ -59,15 +61,14 @@ public class SpineSpawnManager : MonoBehaviour
         //THIS WILL PROBABLY CHANGE WHEN INTENSITY WEIGHTS MAKE AN APPEARANCE!!
         if (!spawningPattern && patternDatabase.Length > 0) //If we are not spawning a pattern currently, and can find one to spawn, then choose a random one and start it up
         {
-            SpinePattern nextSpinePattern = patternDatabase[Random.Range(0, patternDatabase.Length)];
+            SpinePattern nextSpinePattern = RandomWeightedSpinePattern();
             StartCoroutine(SpawnSpinePattern(nextSpinePattern));
         }
     }
 
-    public void StartSpawning()
+    private SpinePattern RandomWeightedSpinePattern()
     {
-        StopAllCoroutines();
-        StartCoroutine(SpawnSpinePattern(startPattern)); //Start the spines spawning when the scene loads
+        return patternDatabase[Random.Range(0, patternDatabase.Length)];
     }
 
     public void ClearCurrentPattern() //Removes the current pattern and stops it from spawning
@@ -115,7 +116,7 @@ public class SpineSpawnManager : MonoBehaviour
 
     public void AdjustIntensity(MathUtility.Operation operation, float amount) //Adjust the intensity by an amount and an operation
     {
-        intensity = MathUtility.ApplyOperation(operation, amount, intensity);
+        intensity = MathUtility.ApplyOperation(operation, intensity, amount);
         intensity = Mathf.Clamp01(intensity);
     }
 
@@ -124,5 +125,15 @@ public class SpineSpawnManager : MonoBehaviour
         float modifiedValue = MathUtility.ApplyOperation(operation, currentValue, intensityStrength * intensityMultiplier);
 
         return Mathf.Lerp(currentValue, modifiedValue, intensity);
+    }
+
+    public void SetDifficulty(Difficulty difficulty)
+    {
+        intensityStrength = difficulty.intensityStrength;
+        intensityTimeFactor = difficulty.intensityTimeFactor;
+
+        gravityIntensityMultiplier = difficulty.gravityIntensityMultiplier;
+        startDelayIntensityMultiplier = difficulty.startDelayIntensityMultiplier;
+        spineDelayIntensityMultiplier = difficulty.spineDelayIntensityMultiplier;
     }
 }

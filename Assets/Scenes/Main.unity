@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 2184907}
   m_Layer: 0
   m_Name: Red_R
-  m_TagString: Untagged
+  m_TagString: TargetSection
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -382,11 +382,6 @@ MonoBehaviour:
   baseSpineGravity: -5
   spawnWidthRange: {x: -2, y: 2}
   spawnHeight: 5
-  intensityStrength: 1.75
-  intensityTimeFactor: 0.01
-  gravityIntensityMultiplier: 0.75
-  startDelayIntensityMultiplier: 1.25
-  spineDelayIntensityMultiplier: 1.5
   basicSpine: {fileID: 8402550240428330766, guid: 0662fe52bbec19148b1e9de1183ff788, type: 3}
   startPattern: {fileID: 11400000, guid: 0db20072aa1045a4d9b4f7c0cb8c2973, type: 2}
   patternDatabase:
@@ -883,7 +878,7 @@ GameObject:
   - component: {fileID: 198662557}
   m_Layer: 0
   m_Name: Black_R
-  m_TagString: Untagged
+  m_TagString: TargetSection
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1687,7 +1682,7 @@ GameObject:
   - component: {fileID: 443338977}
   m_Layer: 0
   m_Name: Yellow
-  m_TagString: Untagged
+  m_TagString: TargetSection
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2981,7 +2976,7 @@ GameObject:
   - component: {fileID: 854165859}
   m_Layer: 0
   m_Name: Black_L
-  m_TagString: Untagged
+  m_TagString: TargetSection
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3436,7 +3431,7 @@ GameObject:
   - component: {fileID: 895306374}
   m_Layer: 0
   m_Name: Blue_R
-  m_TagString: Untagged
+  m_TagString: TargetSection
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3807,7 +3802,7 @@ GameObject:
   - component: {fileID: 1005185671}
   m_Layer: 0
   m_Name: White_R
-  m_TagString: Untagged
+  m_TagString: TargetSection
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4049,6 +4044,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxLives: 0
+  difficulty: {fileID: 0}
   missIntensityMultiplier: 0.6666667
   floatingText: {fileID: 2427808367758055843, guid: c9fcfe89df76b374c9ecfef9e03bba07, type: 3}
   positionRange: {x: -0.2, y: 0.2}
@@ -5389,7 +5385,7 @@ GameObject:
   - component: {fileID: 1698325957}
   m_Layer: 0
   m_Name: Red_L
-  m_TagString: Untagged
+  m_TagString: TargetSection
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5839,7 +5835,7 @@ GameObject:
   - component: {fileID: 1824767131}
   m_Layer: 0
   m_Name: White_L
-  m_TagString: Untagged
+  m_TagString: TargetSection
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6330,7 +6326,7 @@ GameObject:
   - component: {fileID: 1978482721}
   m_Layer: 0
   m_Name: Blue_L
-  m_TagString: Untagged
+  m_TagString: TargetSection
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
