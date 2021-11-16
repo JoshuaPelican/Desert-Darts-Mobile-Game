@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SpineSpawnManager : MonoBehaviour
@@ -25,6 +26,7 @@ public class SpineSpawnManager : MonoBehaviour
     [SerializeField] float baseSpineGravity = -5f;
     [SerializeField] Vector2 spawnWidthRange = new Vector2(-5, 5);
     [SerializeField] float spawnHeight = 5;
+    [SerializeField] int maxIterations = 50;
 
     float intensity = 0;
     float intensityStrength = 2;
@@ -68,7 +70,21 @@ public class SpineSpawnManager : MonoBehaviour
 
     private SpinePattern RandomWeightedSpinePattern()
     {
-        return patternDatabase[Random.Range(0, patternDatabase.Length)];
+        SpinePattern randPattern = patternDatabase[Random.Range(0, patternDatabase.Length)];
+        bool inRange = intensity > randPattern.intensityRange.x && intensity < randPattern.intensityRange.y;
+        int i = 0;
+
+        while (!inRange || i >= maxIterations)
+        {
+            i++;
+            randPattern = patternDatabase[Random.Range(0, patternDatabase.Length)];
+            inRange = intensity > randPattern.intensityRange.x && intensity < randPattern.intensityRange.y;
+        }
+
+        if (i >= maxIterations)
+            randPattern = patternDatabase[0];
+
+        return randPattern;
     }
 
     public void ClearCurrentPattern() //Removes the current pattern and stops it from spawning

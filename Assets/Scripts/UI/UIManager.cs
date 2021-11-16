@@ -24,16 +24,19 @@ public class UIManager : MonoBehaviour
     [Header("Text Mesh References")]
     [SerializeField] TextMeshProUGUI pointsTextMesh;
     [SerializeField] TextMeshProUGUI multiplierTextMesh;
+    [SerializeField] TextMeshProUGUI highscoreTextMesh;
 
     [Space()]
 
     [Header("Panel References")]
     [SerializeField] GameObject pausedPanel;
+    [SerializeField] GameObject gameEndPanel;
 
     public enum TextType
     {
         Points,
-        Multiplier
+        Multiplier,
+        Highscore,
     }
 
     public enum PanelType
@@ -43,18 +46,27 @@ public class UIManager : MonoBehaviour
         GameEnd
     }
 
-    bool paused;
+    bool paused = false;
+    bool canInput = true;
 
     private void Update()
     {
         if (Input.touchCount > 0)
             if (Input.GetTouch(0).phase == TouchPhase.Began && !paused)
-                PauseGame(true);
+                PauseGame(true, false, PanelType.Pause);
     }
 
     // Takes in a bool for pause
     // Pauses or Unpauses the game based on this bool
-    public void PauseGame(bool pause)
+    public void PauseGame(bool pause, bool disableInput, PanelType panelType)
+    {
+        paused = pause;
+        canInput = !disableInput;
+        DisplayPanel(panelType, pause);
+        Time.timeScale = pause ? 0 : 1;
+    }
+
+        public void PauseGame(bool pause)
     {
         paused = pause;
         DisplayPanel(PanelType.Pause, pause);
@@ -70,6 +82,8 @@ public class UIManager : MonoBehaviour
             case TextType.Points: textMesh = pointsTextMesh;
                 break;
             case TextType.Multiplier: textMesh = multiplierTextMesh;
+                break;
+            case TextType.Highscore: textMesh = highscoreTextMesh;
                 break;
         }
 
@@ -87,7 +101,7 @@ public class UIManager : MonoBehaviour
                 break;
             case PanelType.GameStart:
                 break;
-            case PanelType.GameEnd:
+            case PanelType.GameEnd: panel = gameEndPanel;
                 break;
         }
 

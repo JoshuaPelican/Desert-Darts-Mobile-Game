@@ -25,9 +25,10 @@ public class SaveDataManager : MonoBehaviour
 
     [Header("Save Data Settings")]
     [SerializeField] string fileName = "data.json";
+    [SerializeField] int highscoreCount = 1;
     string filePath;
 
-    [SerializeField] SaveData currentData;
+    SaveData currentData;
 
     private void Start()
     {
@@ -55,9 +56,10 @@ public class SaveDataManager : MonoBehaviour
 
     public void InitializeSaveData()
     {
-        currentData = new SaveData();
+        currentData = new SaveData(highscoreCount);
         SaveData();
     }
+
     public float[] Highscores
     {
         get { return currentData.highscores; }
@@ -74,9 +76,14 @@ public class SaveData
 {
     public float[] highscores;
 
-    public SaveData()
+    public SaveData(int highscoreCount = 1)
     {
-        highscores = new float[5];
+        highscores = new float[highscoreCount];
+    }
+
+    public void SetHighscores(float[] scores)
+    {
+        scores.CopyTo(highscores, 0);
     }
 
     public void ClearData()

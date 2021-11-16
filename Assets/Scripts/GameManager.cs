@@ -35,8 +35,6 @@ public class GameManager : MonoBehaviour
     float pointsMultiplier = 1;
     float multiplierProgress = 1;
 
-    SaveDataManager saveDataManager;
-
     [Header("Floating Text Settings")]
     [SerializeField] GameObject floatingText;
     [Space()]
@@ -53,7 +51,6 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         source = GetComponent<AudioSource>();
-        saveDataManager = SaveDataManager.instance;
 
         SceneManager.sceneLoaded += StartGame;
     }
@@ -65,6 +62,8 @@ public class GameManager : MonoBehaviour
             currentLives = maxLives;
             SpineSpawnManager.instance.SetDifficulty(difficulty);
             SpineSpawnManager.instance.StartSpawning();
+
+            UIManager.instance.SetValueTextMesh(UIManager.TextType.Highscore, SaveDataManager.instance.Highscores[0]);
 
             foreach (GameObject targetSection in GameObject.FindGameObjectsWithTag("TargetSection"))
             {
@@ -174,7 +173,7 @@ public class GameManager : MonoBehaviour
     private void CheckHighscoreAndSort(float points)
     {
         float[] highscores = new float[5];
-        saveDataManager.Highscores.CopyTo(highscores, 0);
+        SaveDataManager.instance.Highscores.CopyTo(highscores, 0);
 
         int index = 0;
 
@@ -197,13 +196,13 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                highscores[i] = saveDataManager.Highscores[j];
+                highscores[i] = SaveDataManager.instance.Highscores[j];
                 j++;
             }
         }
 
         //Debug.Log(highscores[0] + " ," + highscores[1] + " ," + highscores[2] + " ," + highscores[3] + " ," + highscores[4]);
-        highscores.CopyTo(saveDataManager.Highscores, 0);
+        highscores.CopyTo(SaveDataManager.instance.Highscores, 0);
     }
 
     private void AdjustLives(MathUtility.Operation operation, float amount)
@@ -219,7 +218,9 @@ public class GameManager : MonoBehaviour
     private void GameOver()
     {
         CheckHighscoreAndSort(totalPoints);
+
         //Game Over Screen
+        UIManager.instance.PauseGame(true, true, UIManager.PanelType.GameEnd);
     }
 
     public void SetDifficulty(Difficulty difficultyToSet)
