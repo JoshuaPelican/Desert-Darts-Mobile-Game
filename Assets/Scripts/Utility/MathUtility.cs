@@ -29,4 +29,24 @@ public class MathUtility : MonoBehaviour
         }
         return mainValue;
     }
+
+    public static int ApplyOperation(Operation operation, int mainValue, int secondaryValue)
+    {
+        switch (operation)
+        {
+            case Operation.Add:
+                mainValue += secondaryValue;
+                break;
+            case Operation.Subtract:
+                mainValue -= secondaryValue;
+                break;
+            case Operation.Multiply:
+                mainValue *= secondaryValue;
+                break;
+            case Operation.Divide:
+                mainValue /= secondaryValue;
+                break;
+        }
+        return mainValue;
+    }
 }

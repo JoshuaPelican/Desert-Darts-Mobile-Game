@@ -34,47 +34,57 @@ public class SaveDataManager : MonoBehaviour
     {
         filePath = Application.dataPath + "/" + fileName;
 
-        LoadData();
+        Load();
     }
 
-    public void SaveData()
+    public SaveData CurrentSaveData
+    {
+        get { return currentData; }
+    }
+
+    public void Save()
     {
         string saveDataString = JsonUtility.ToJson(currentData);
         File.WriteAllText(filePath, saveDataString);
     }
-    public void LoadData()
+    public void Load()
     {
         if (File.Exists(filePath))
         {
             string saveDataString = File.ReadAllText(filePath);
             currentData = JsonUtility.FromJson<SaveData>(saveDataString);
-            currentData.ClearData();
         }
         else
-            InitializeSaveData();     
+            Initialize();     
     }
 
-    public void InitializeSaveData()
+    public void Clear()
+    {
+        currentData = new SaveData();
+        Save();
+    }
+
+    public void Initialize()
     {
         currentData = new SaveData(highscoreCount);
-        SaveData();
-    }
-
-    public float[] Highscores
-    {
-        get { return currentData.highscores; }
-        set 
-        { 
-            currentData.highscores = value; 
-            SaveData(); 
-        }
+        Save();
     }
 }
 
 [System.Serializable]
 public class SaveData
 {
-    public float[] highscores;
+    float[] highscores;
+
+    public float[] Highscores
+    {
+        get { return highscores; }
+        set
+        {
+            highscores = value;
+            SaveDataManager.instance.Save();
+        }
+    }
 
     public SaveData(int highscoreCount = 1)
     {
@@ -84,10 +94,6 @@ public class SaveData
     public void SetHighscores(float[] scores)
     {
         scores.CopyTo(highscores, 0);
-    }
-
-    public void ClearData()
-    {
-        highscores = new float[5];
+        SaveDataManager.instance.Save();
     }
 }

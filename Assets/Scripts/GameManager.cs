@@ -24,10 +24,12 @@ public class GameManager : MonoBehaviour
     #endregion
 
     [Header("Gameplay Settings")]
-    [SerializeField] int maxLives = 3;
+
+    [Header("Lives")]
+    [SerializeField] GameObject heartPrefab;
     int currentLives;
 
-    public Difficulty difficulty;
+    [HideInInspector] public Difficulty difficulty;
 
     [Header("Points Settings")]
     [SerializeField] [Range(0, 1)] float missIntensityMultiplier = 0.667f;
@@ -59,16 +61,21 @@ public class GameManager : MonoBehaviour
     {
         if(scene.name == "Main")
         {
-            currentLives = maxLives;
+            currentLives = difficulty.maxLives;
+            for (int i = 0; i < currentLives; i++)
+                UIManager.instance.AddChildToPanel(UIManager.PanelType.Hearts, heartPrefab);
+
             SpineSpawnManager.instance.SetDifficulty(difficulty);
             SpineSpawnManager.instance.StartSpawning();
 
-            UIManager.instance.SetValueTextMesh(UIManager.TextType.Highscore, SaveDataManager.instance.Highscores[0]);
+            Debug.Log("Highscore: " + SaveDataManager.instance.CurrentSaveData.Highscores[0]);
+            UIManager.instance.SetValueTextMesh(UIManager.TextType.Highscore, SaveDataManager.instance.CurrentSaveData.Highscores[0]);
 
             foreach (GameObject targetSection in GameObject.FindGameObjectsWithTag("TargetSection"))
             {
                 targetSection.transform.localScale = new Vector3(targetSection.transform.localScale.x * difficulty.targetScale, targetSection.transform.localScale.y, targetSection.transform.localScale.z);
             }
+
         }
     }
 
@@ -173,7 +180,7 @@ public class GameManager : MonoBehaviour
     private void CheckHighscoreAndSort(float points)
     {
         float[] highscores = new float[5];
-        SaveDataManager.instance.Highscores.CopyTo(highscores, 0);
+        SaveDataManager.instance.CurrentSaveData.Highscores.CopyTo(highscores, 0);
 
         int index = 0;
 
@@ -196,22 +203,34 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                highscores[i] = SaveDataManager.instance.Highscores[j];
+                highscores[i] = SaveDataManager.instance.CurrentSaveData.Highscores[j];
                 j++;
             }
         }
 
         //Debug.Log(highscores[0] + " ," + highscores[1] + " ," + highscores[2] + " ," + highscores[3] + " ," + highscores[4]);
-        highscores.CopyTo(SaveDataManager.instance.Highscores, 0);
+        highscores.CopyTo(SaveDataManager.instance.CurrentSaveData.Highscores, 0);
     }
 
-    private void AdjustLives(MathUtility.Operation operation, float amount)
+    private void AdjustLives(MathUtility.Operation operation, int amount)
     {
-        MathUtility.ApplyOperation(operation, currentLives, amount);
+        int oldLives = currentLives;
+
+        currentLives = MathUtility.ApplyOperation(operation, currentLives, amount);
+
+        int changeInLives = oldLives - currentLives;
 
         if (currentLives <= 0)
         {
             GameOver();
+        }
+
+        if (changeInLives > 0)
+        {
+            for (int i = 0; i < changeInLives; i++)
+            {
+                UIManager.instance.RemoveChildFromPanel(UIManager.PanelType.Hearts);
+            }
         }
     }
 
@@ -225,8 +244,6 @@ public class GameManager : MonoBehaviour
 
     public void SetDifficulty(Difficulty difficultyToSet)
     {
-        maxLives = difficulty.maxLives;
-
         difficulty = difficultyToSet;
     }
 }

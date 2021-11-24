@@ -7,6 +7,7 @@ public class SceneLoader : MonoBehaviour
 {
     [Header("Transition Settings")]
     [SerializeField] float transitionDuration = 1f;
+    [SerializeField] GameObject sandBlast;
 
     Animator anim;
     [SerializeField] AudioClip transitionClip;
@@ -44,9 +45,11 @@ public class SceneLoader : MonoBehaviour
         AudioSource transitionSource = tempAudio.GetComponent<AudioSource>();
         transitionSource.outputAudioMixerGroup = masterMixer.FindMatchingGroups("Effects")[0];
 
-        Instantiate(tempAudio);
+        //Instantiate(tempAudio);
+        GameObject tempSandBlast = Instantiate(sandBlast);
         AudioUtility.RandomizeSourceAndPlay(transitionClip, transitionSource, 0.4f, 1, 0.05f);
 
+        DontDestroyOnLoad(tempSandBlast);
         DontDestroyOnLoad(tempAudio);
         Destroy(tempAudio, 4f);
     }

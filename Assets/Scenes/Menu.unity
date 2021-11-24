@@ -1288,7 +1288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47fbff8ddce32d442853b803b5bdfad4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxLives: 3
+  heartPrefab: {fileID: 8395494852296497592, guid: 49d0b05ab563aa447bec7414109a93d0, type: 3}
   difficulty: {fileID: 0}
   missIntensityMultiplier: 0.6666667
   floatingText: {fileID: 2427808367758055843, guid: c9fcfe89df76b374c9ecfef9e03bba07, type: 3}
@@ -2502,8 +2502,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fileName: save.cactus
-  currentData:
-    highscores: []
+  highscoreCount: 1
 --- !u!4 &798519126
 Transform:
   m_ObjectHideFlags: 0

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b1c66a5d012e704c9f914e174b5d707, type: 3}
   m_Name: Line 3
   m_EditorClassIdentifier: 
-  intensityRange: {x: 0, y: 0.5}
+  intensityRange: {x: 0.2, y: 0.6}
   burstCount: 1
   startDelay: 2
   angled: 0

@@ -31,6 +31,7 @@ public class UIManager : MonoBehaviour
     [Header("Panel References")]
     [SerializeField] GameObject pausedPanel;
     [SerializeField] GameObject gameEndPanel;
+    [SerializeField] GameObject heartsPanel;
 
     public enum TextType
     {
@@ -43,7 +44,8 @@ public class UIManager : MonoBehaviour
     {
         Pause,
         GameStart,
-        GameEnd
+        GameEnd,
+        Hearts
     }
 
     bool paused = false;
@@ -91,21 +93,40 @@ public class UIManager : MonoBehaviour
             textMesh.text = prefix + value.ToString(valueFormat) + suffix;
     }
 
-    public void DisplayPanel(PanelType panelType, bool setActive)
+    private GameObject GetPanel(PanelType panelType)
     {
         GameObject panel = null;
 
         switch (panelType)
         {
-            case PanelType.Pause: panel = pausedPanel;
+            case PanelType.Pause:
+                panel = pausedPanel;
                 break;
             case PanelType.GameStart:
                 break;
-            case PanelType.GameEnd: panel = gameEndPanel;
+            case PanelType.GameEnd:
+                panel = gameEndPanel;
+                break;
+            case PanelType.Hearts:
+                panel = heartsPanel;
                 break;
         }
 
-        if (panel)
-            panel.SetActive(setActive);
+        return panel;
+    }
+
+    public void DisplayPanel(PanelType panelType, bool setActive)
+    {
+        GetPanel(panelType).SetActive(setActive);
+    }
+
+    public void AddChildToPanel(PanelType panelType, GameObject child)
+    {
+        Instantiate(child, GetPanel(panelType).transform);
+    }
+
+    public void RemoveChildFromPanel(PanelType panelType)
+    {
+        Destroy(GetPanel(panelType).transform.GetChild(0).gameObject);
     }
 }

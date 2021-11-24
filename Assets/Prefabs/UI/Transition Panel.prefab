@@ -90,6 +90,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transitionDuration: 1
+  sandBlast: {fileID: 8196423901701181181, guid: c17359ba47c0455478da1ad5796dc40d, type: 3}
   transitionClip: {fileID: 8300000, guid: 4403898564cba89418d6c0db9488695f, type: 3}
   masterMixer: {fileID: 24100000, guid: 4f35c22dfb34792449f0c94183a90730, type: 2}
 --- !u!95 &1250004926072644297
