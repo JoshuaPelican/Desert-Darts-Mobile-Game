@@ -9,6 +9,12 @@ Aim for the center for more points and higher multipliers!
 Lose a life when you miss completely. The game ends when you lose all of your lives!
 
 Try to best your highscore with endless relatability!
+
+
+## Download Link
+
+Play the Game Here! -> https://joshuapelican.itch.io/desert-darts-mobile
+
 	
 ## Inspirations	
 
