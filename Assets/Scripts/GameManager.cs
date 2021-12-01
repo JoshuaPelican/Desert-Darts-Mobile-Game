@@ -1,5 +1,5 @@
 using UnityEngine;
-using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,25 +18,23 @@ public class GameManager : MonoBehaviour
             instance = this;
         }
 
-        //DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject);
     }
 
     #endregion
 
-    [Header("Timer Settings")]
-    [SerializeField] float maxTimerDuration;
-    float currentTimer;
-    [SerializeField] TextMeshProUGUI timerTextMesh;
+    [Header("Gameplay Settings")]
 
-    float totalPoints = 0;
-    float pointsMultiplier = 1;
+    [Header("Lives")]
+    [SerializeField] GameObject heartPrefab;
+    int currentLives;
 
-    float multiplierProgress = 1;
+    [HideInInspector] public Difficulty difficulty;
 
     [Header("Points Settings")]
-    [SerializeField] [Range(0, 1)]float missIntensityMultiplier = 0.667f;
-    [SerializeField] TextMeshProUGUI pointsTextMesh;
-    [SerializeField] TextMeshProUGUI multiplierTextMesh;
+    float totalPoints = 0;
+    float pointsMultiplier = 1;
+    float multiplierProgress = 1;
 
     [Header("Floating Text Settings")]
     [SerializeField] GameObject floatingText;
@@ -47,10 +45,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] float pointsScaleMax = 25f;
     [SerializeField] float scaleMax = 2f;
 
-    [Header("Pause Settings")]
-    [SerializeField] GameObject pausedPanel;
-    bool paused;
-
     [Header("Audio Settings")]
     [SerializeField] AudioClip missedSpineClip;
     AudioSource source;
@@ -58,62 +52,44 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         source = GetComponent<AudioSource>();
-        //currentTimer = maxTimerDuration + Time.deltaTime;
-        //UpdateTimer();
+
+        SceneManager.sceneLoaded += StartGame;
     }
 
-    private void Update()
+    private void StartGame(Scene scene, LoadSceneMode loadSceneMode)
     {
-        if(Input.touchCount > 0)
+        if(scene.name == "Main")
         {
-            if (Input.GetTouch(0).phase == TouchPhase.Ended && !paused)
+            currentLives = difficulty.maxLives;
+            totalPoints = 0;
+            pointsMultiplier = 1;
+            multiplierProgress = 1;
+
+            for (int i = 0; i < currentLives; i++)
+                UIManager.instance.AddChildToPanel(UIManager.PanelType.Hearts, heartPrefab);
+
+            SpineSpawnManager.instance.SetDifficulty(difficulty);
+            SpineSpawnManager.instance.StartSpawning();
+
+            //Debug.Log("Highscore: " + SaveDataManager.instance.CurrentSaveData.Highscores[0]);
+            UIManager.instance.SetValueTextMesh(UIManager.TextType.Highscore, SaveDataManager.instance.CurrentSaveData.Highscores[0]);
+
+            foreach (GameObject targetSection in GameObject.FindGameObjectsWithTag("TargetSection"))
             {
-                //Pause the game
-                paused = true;
-                pausedPanel.SetActive(true);
-                Time.timeScale = 0;
-            }
-            else if (Input.GetTouch(0).phase == TouchPhase.Ended && paused)
-            {
-                //Unpause the game
-                Time.timeScale = 1;
-                pausedPanel.SetActive(false);
-                paused = false;
+                targetSection.transform.localScale = new Vector3(targetSection.transform.localScale.x * difficulty.targetScale, targetSection.transform.localScale.y, targetSection.transform.localScale.z);
             }
         }
-
-        //UpdateTimer();
     }
-
-    /*
-    private void UpdateTimer()
-    {
-        currentTimer -= Time.deltaTime;
-
-        if(currentTimer <= 0)
-        {
-
-        }
-
-        int minutes = Mathf.FloorToInt(currentTimer / 60);
-        int seconds = Mathf.FloorToInt(currentTimer % 60);
-
-        timerTextMesh.SetText(minutes + ":" + seconds);
-    }
-    */
 
     // Takes in a a point value and a bool for if using the global multiplier
     // Adds the point value to the total points count and uses multiplier if required
     public void ApplyPoints(float value, MathUtility.Operation operation, bool applyMultiplier)
     {
         if (applyMultiplier)
-        {
             value *= pointsMultiplier;
-        }
 
-        totalPoints = MathUtility.ApplyOperation(operation, value, totalPoints);
-
-        UpdateValueText(pointsTextMesh, totalPoints);
+        totalPoints = MathUtility.ApplyOperation(operation, totalPoints, value);
+        UIManager.instance.SetValueTextMesh(UIManager.TextType.Points, totalPoints);
     }
 
     // Takes in a a point value and a bool for if using the global multiplier. This version also takes in a position and color used for floating text popup
@@ -123,9 +99,7 @@ public class GameManager : MonoBehaviour
         ApplyPoints(value, operation, applyMultiplier);
 
         if (applyMultiplier)
-        {
             value *= pointsMultiplier;
-        }
 
         float pointsScale = ((value / pointsScaleMax) * scaleMax) + 1;
         string pointsString = "";
@@ -153,11 +127,6 @@ public class GameManager : MonoBehaviour
         DisplayFloatingText(pointsString, floatingTextPosition, pointsScale, floatingTextColor);
     }
 
-    private void UpdateValueText(TextMeshProUGUI textMesh, float value, string prefix = "", string suffix = "", string valueFormat = "F0")
-    {
-        textMesh.text = prefix + value.ToString(valueFormat) + suffix;
-    }
-
     //Takes in a position, a base scale miltiplier and a text string
     //Places floating text at the position with the givent text string. Randomly adjusts position, rotation and scales the text based on global random ranges
     public void DisplayFloatingText(string text, Vector2 position, float scale, Color color)
@@ -174,7 +143,7 @@ public class GameManager : MonoBehaviour
 
     public void MissedSpine()
     {
-        SpineSpawnManager.instance.AdjustIntensity(MathUtility.Operation.Multiply, missIntensityMultiplier);
+        SpineSpawnManager.instance.AdjustIntensity(MathUtility.Operation.Multiply, difficulty.missIntensityMultiplier);
         SpineSpawnManager.instance.ClearCurrentPattern();
 
         ClearAllSpines();
@@ -183,7 +152,9 @@ public class GameManager : MonoBehaviour
 
         ChangeMultiplierProgress(-multiplierProgress + 1);
         CalculatePointMultiplier();
-        UpdateValueText(multiplierTextMesh, pointsMultiplier, "x");
+        UIManager.instance.SetValueTextMesh(UIManager.TextType.Multiplier, pointsMultiplier, "x");
+
+        AdjustLives(MathUtility.Operation.Subtract, 1);
     }
 
     public void ClearAllSpines()
@@ -202,10 +173,78 @@ public class GameManager : MonoBehaviour
         CalculatePointMultiplier();
     }
 
-
     private void CalculatePointMultiplier()
     {
         pointsMultiplier = Mathf.RoundToInt(Mathf.Sqrt(multiplierProgress));
-        UpdateValueText(multiplierTextMesh, pointsMultiplier, "x");
+        UIManager.instance.SetValueTextMesh(UIManager.TextType.Multiplier, pointsMultiplier, "x");
+    }
+
+    private void CheckHighscoreAndSort(float points)
+    {
+        float[] highscores = new float[SaveDataManager.instance.highscoreCount];
+        SaveDataManager.instance.CurrentSaveData.Highscores.CopyTo(highscores, 0);
+
+        int index = 0;
+
+        for (int i = 0; i < highscores.Length; i++)
+        {
+            if(points > highscores[i])
+            {
+                index = i;
+                break;
+            }
+        }
+
+        int j = 0;
+
+        for (int i = 0; i < highscores.Length; i++)
+        {
+            if(i == index)
+            {
+                highscores[i] = points;
+            }
+            else
+            {
+                highscores[i] = SaveDataManager.instance.CurrentSaveData.Highscores[j];
+                j++;
+            }
+        }
+
+        SaveDataManager.instance.CurrentSaveData.SetHighscores(highscores);
+    }
+
+    private void AdjustLives(MathUtility.Operation operation, int amount)
+    {
+        int oldLives = currentLives;
+
+        currentLives = MathUtility.ApplyOperation(operation, currentLives, amount);
+
+        int changeInLives = oldLives - currentLives;
+
+        if (currentLives <= 0)
+        {
+            GameOver();
+        }
+
+        if (changeInLives > 0)
+        {
+            for (int i = 0; i < changeInLives; i++)
+            {
+                UIManager.instance.RemoveChildFromPanel(UIManager.PanelType.Hearts);
+            }
+        }
+    }
+
+    private void GameOver()
+    {
+        CheckHighscoreAndSort(totalPoints);
+
+        //Game Over Screen
+        UIManager.instance.PauseGame(true, true, UIManager.PanelType.GameEnd);
+    }
+
+    public void SetDifficulty(Difficulty difficultyToSet)
+    {
+        difficulty = difficultyToSet;
     }
 }

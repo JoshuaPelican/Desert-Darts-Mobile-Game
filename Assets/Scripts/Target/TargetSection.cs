@@ -2,11 +2,14 @@ using UnityEngine;
 
 public class TargetSection : MonoBehaviour
 {
+    [Header("Target Section Settings")]
     [SerializeField] float pointValue = 1;
     [SerializeField] float intensityBoost = 0.01f;
     [SerializeField] float multiplierBoost = 0f;
+    [Space()]
     [SerializeField] Transform socket;
     [SerializeField] [Range(-1, 1)] int direction = 1;
+    [Space()]
     [SerializeField] AudioClip sectionClip;
 
     Color sectionColor;

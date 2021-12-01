@@ -10,43 +10,43 @@ public class MathUtility : MonoBehaviour
         Divide
     }
 
-    public static float ApplyOperation(Operation operation, float value1, float value2)
+    public static float ApplyOperation(Operation operation, float mainValue, float secondaryValue)
     {
         switch (operation)
         {
             case Operation.Add:
-                value2 += value1;
+                mainValue += secondaryValue;
                 break;
             case Operation.Subtract:
-                value2 -= value1;
+                mainValue -= secondaryValue;
                 break;
             case Operation.Multiply:
-                value2 *= value1;
+                mainValue *= secondaryValue;
                 break;
             case Operation.Divide:
-                value2 /= value1;
+                mainValue /= secondaryValue;
                 break;
         }
-        return value2;
+        return mainValue;
     }
 
-    public static int ApplyOperation(Operation operation, int value1, int value2)
+    public static int ApplyOperation(Operation operation, int mainValue, int secondaryValue)
     {
         switch (operation)
         {
             case Operation.Add:
-                value2 += value1;
+                mainValue += secondaryValue;
                 break;
             case Operation.Subtract:
-                value2 -= value1;
+                mainValue -= secondaryValue;
                 break;
             case Operation.Multiply:
-                value2 *= value1;
+                mainValue *= secondaryValue;
                 break;
             case Operation.Divide:
-                value2 /= value1;
+                mainValue /= secondaryValue;
                 break;
         }
-        return value2;
+        return mainValue;
     }
 }

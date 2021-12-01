@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Spine
   - OutOfBounds
+  - TargetSection
   layers:
   - Default
   - TransparentFX

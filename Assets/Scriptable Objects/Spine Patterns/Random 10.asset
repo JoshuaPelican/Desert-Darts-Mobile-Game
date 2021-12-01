@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b1c66a5d012e704c9f914e174b5d707, type: 3}
   m_Name: Random 10
   m_EditorClassIdentifier: 
+  intensityRange: {x: 0.15, y: 1}
   burstCount: 5
   startDelay: 2
   angled: 0
