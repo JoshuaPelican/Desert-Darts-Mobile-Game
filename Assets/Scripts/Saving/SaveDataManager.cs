@@ -19,27 +19,32 @@ public class SaveDataManager : MonoBehaviour
         }
 
         DontDestroyOnLoad(gameObject);
+
+        filePath = Path.Combine(Application.persistentDataPath, fileName);
+        //filePath = Application.dataPath + "/" + fileName;
+        Load();
     }
 
     #endregion
 
     [Header("Save Data Settings")]
-    [SerializeField] string fileName = "data.json";
-    [SerializeField] int highscoreCount = 1;
+    [SerializeField] string fileName = "cactus.json";
+    public int highscoreCount = 1;
     string filePath;
 
     SaveData currentData;
 
-    private void Start()
-    {
-        filePath = Application.dataPath + "/" + fileName;
-
-        Load();
-    }
-
     public SaveData CurrentSaveData
     {
-        get { return currentData; }
+        get 
+        { 
+            if(currentData == null)
+            {
+                Initialize();
+            }
+
+            return currentData; 
+        }
     }
 
     public void Save()
@@ -47,6 +52,7 @@ public class SaveDataManager : MonoBehaviour
         string saveDataString = JsonUtility.ToJson(currentData);
         File.WriteAllText(filePath, saveDataString);
     }
+
     public void Load()
     {
         if (File.Exists(filePath))
@@ -60,7 +66,7 @@ public class SaveDataManager : MonoBehaviour
 
     public void Clear()
     {
-        currentData = new SaveData();
+        currentData = new SaveData(highscoreCount);
         Save();
     }
 
@@ -74,7 +80,13 @@ public class SaveDataManager : MonoBehaviour
 [System.Serializable]
 public class SaveData
 {
+    [SerializeField]
     float[] highscores;
+
+    [SerializeField]
+    bool muteEffects = false;
+    [SerializeField]
+    bool muteMusic =false;
 
     public float[] Highscores
     {
@@ -86,9 +98,36 @@ public class SaveData
         }
     }
 
+    public bool MuteMusic
+    {
+        get { return muteMusic; }
+        set
+        {
+            muteMusic = value;
+            SaveDataManager.instance.Save();
+        }
+    }
+
+    public bool MuteEffects
+    {
+        get { return muteEffects; }
+        set
+        {
+            muteEffects = value;
+            SaveDataManager.instance.Save();
+        }
+    }
+
     public SaveData(int highscoreCount = 1)
     {
         highscores = new float[highscoreCount];
+
+        for (int i = 0; i < highscores.Length; i++)
+        {
+            highscores[i] = 0;
+        }
+
+        SaveDataManager.instance.Save();
     }
 
     public void SetHighscores(float[] scores)

@@ -68,7 +68,7 @@ public class UIManager : MonoBehaviour
         Time.timeScale = pause ? 0 : 1;
     }
 
-        public void PauseGame(bool pause)
+    public void PauseGame(bool pause)
     {
         paused = pause;
         DisplayPanel(PanelType.Pause, pause);

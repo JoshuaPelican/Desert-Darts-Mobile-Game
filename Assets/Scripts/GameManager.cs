@@ -62,6 +62,10 @@ public class GameManager : MonoBehaviour
         if(scene.name == "Main")
         {
             currentLives = difficulty.maxLives;
+            totalPoints = 0;
+            pointsMultiplier = 1;
+            multiplierProgress = 1;
+
             for (int i = 0; i < currentLives; i++)
                 UIManager.instance.AddChildToPanel(UIManager.PanelType.Hearts, heartPrefab);
 
@@ -75,7 +79,6 @@ public class GameManager : MonoBehaviour
             {
                 targetSection.transform.localScale = new Vector3(targetSection.transform.localScale.x * difficulty.targetScale, targetSection.transform.localScale.y, targetSection.transform.localScale.z);
             }
-
         }
     }
 
@@ -179,7 +182,7 @@ public class GameManager : MonoBehaviour
 
     private void CheckHighscoreAndSort(float points)
     {
-        float[] highscores = new float[5];
+        float[] highscores = new float[SaveDataManager.instance.highscoreCount];
         SaveDataManager.instance.CurrentSaveData.Highscores.CopyTo(highscores, 0);
 
         int index = 0;
