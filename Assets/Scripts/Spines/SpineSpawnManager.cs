@@ -30,6 +30,7 @@ public class SpineSpawnManager : MonoBehaviour
 
     float intensity = 0;
     float intensityStrength = 2;
+    float intensityGainMultiplier = 1;
     float intensityTimeFactor = 0.125f;
 
     float gravityIntensityMultiplier = 0.75f;
@@ -60,8 +61,7 @@ public class SpineSpawnManager : MonoBehaviour
         float modGravity = CalculateIntensityWeightedValue(baseSpineGravity, MathUtility.Operation.Multiply, gravityIntensityMultiplier);
         Physics2D.gravity = new Vector2(0, modGravity); //Set the global gravity to its modifed value based on intensity
 
-        //THIS WILL PROBABLY CHANGE WHEN INTENSITY WEIGHTS MAKE AN APPEARANCE!!
-        if (!spawningPattern && patternDatabase.Length > 0) //If we are not spawning a pattern currently, and can find one to spawn, then choose a random one and start it up
+        if (!spawningPattern && patternDatabase.Length > 0) //If we are not spawning a pattern currently, and can find one to spawn, then choose a random weighted one and start it up
         {
             SpinePattern nextSpinePattern = RandomWeightedSpinePattern();
             StartCoroutine(SpawnSpinePattern(nextSpinePattern));
@@ -71,10 +71,10 @@ public class SpineSpawnManager : MonoBehaviour
     private SpinePattern RandomWeightedSpinePattern()
     {
         SpinePattern randPattern = patternDatabase[Random.Range(0, patternDatabase.Length)];
-        bool inRange = intensity > randPattern.intensityRange.x && intensity < randPattern.intensityRange.y;
+        bool inRange = intensity >= randPattern.intensityRange.x && intensity <= randPattern.intensityRange.y;
         int i = 0;
 
-        while (!inRange || i >= maxIterations)
+        while (!inRange && i < maxIterations)
         {
             i++;
             randPattern = patternDatabase[Random.Range(0, patternDatabase.Length)];
@@ -132,7 +132,13 @@ public class SpineSpawnManager : MonoBehaviour
 
     public void AdjustIntensity(MathUtility.Operation operation, float amount) //Adjust the intensity by an amount and an operation
     {
-        intensity = MathUtility.ApplyOperation(operation, intensity, amount);
+
+        if (operation == MathUtility.Operation.Add)
+            intensity = MathUtility.ApplyOperation(operation, intensity, amount * intensityGainMultiplier);
+        else
+            intensity = MathUtility.ApplyOperation(operation, intensity, amount);
+
+
         intensity = Mathf.Clamp01(intensity);
     }
 
@@ -146,6 +152,7 @@ public class SpineSpawnManager : MonoBehaviour
     public void SetDifficulty(Difficulty difficulty)
     {
         intensityStrength = difficulty.intensityStrength;
+        intensityGainMultiplier = difficulty.intensityGainMultiplier;
         intensityTimeFactor = difficulty.intensityTimeFactor;
 
         gravityIntensityMultiplier = difficulty.gravityIntensityMultiplier;

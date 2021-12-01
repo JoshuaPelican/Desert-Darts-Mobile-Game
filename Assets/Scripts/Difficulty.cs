@@ -10,7 +10,9 @@ public class Difficulty : ScriptableObject
 
     [Header("Intensity Settings")]
     public float intensityStrength = 1.75f;
+    public float intensityGainMultiplier = 1;
     [Range(0, 0.02f)] public float intensityTimeFactor = 0.01f;
+    [Range(0, 1)] public float missIntensityMultiplier = 0.667f;
 
     [Space()]
 

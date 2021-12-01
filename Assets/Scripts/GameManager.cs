@@ -32,7 +32,6 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public Difficulty difficulty;
 
     [Header("Points Settings")]
-    [SerializeField] [Range(0, 1)] float missIntensityMultiplier = 0.667f;
     float totalPoints = 0;
     float pointsMultiplier = 1;
     float multiplierProgress = 1;
@@ -72,7 +71,7 @@ public class GameManager : MonoBehaviour
             SpineSpawnManager.instance.SetDifficulty(difficulty);
             SpineSpawnManager.instance.StartSpawning();
 
-            Debug.Log("Highscore: " + SaveDataManager.instance.CurrentSaveData.Highscores[0]);
+            //Debug.Log("Highscore: " + SaveDataManager.instance.CurrentSaveData.Highscores[0]);
             UIManager.instance.SetValueTextMesh(UIManager.TextType.Highscore, SaveDataManager.instance.CurrentSaveData.Highscores[0]);
 
             foreach (GameObject targetSection in GameObject.FindGameObjectsWithTag("TargetSection"))
@@ -144,7 +143,7 @@ public class GameManager : MonoBehaviour
 
     public void MissedSpine()
     {
-        SpineSpawnManager.instance.AdjustIntensity(MathUtility.Operation.Multiply, missIntensityMultiplier);
+        SpineSpawnManager.instance.AdjustIntensity(MathUtility.Operation.Multiply, difficulty.missIntensityMultiplier);
         SpineSpawnManager.instance.ClearCurrentPattern();
 
         ClearAllSpines();
@@ -211,8 +210,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        //Debug.Log(highscores[0] + " ," + highscores[1] + " ," + highscores[2] + " ," + highscores[3] + " ," + highscores[4]);
-        highscores.CopyTo(SaveDataManager.instance.CurrentSaveData.Highscores, 0);
+        SaveDataManager.instance.CurrentSaveData.SetHighscores(highscores);
     }
 
     private void AdjustLives(MathUtility.Operation operation, int amount)

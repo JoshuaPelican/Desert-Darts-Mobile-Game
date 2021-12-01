@@ -15,7 +15,9 @@ MonoBehaviour:
   maxLives: 5
   targetScale: 1.25
   intensityStrength: 1.25
-  intensityTimeFactor: 0.0075
-  gravityIntensityMultiplier: 0.75
+  intensityGainMultiplier: 0.5
+  intensityTimeFactor: 0.0025
+  missIntensityMultiplier: 0.334
+  gravityIntensityMultiplier: 0.35
   startDelayIntensityMultiplier: 1.25
   spineDelayIntensityMultiplier: 1.5
