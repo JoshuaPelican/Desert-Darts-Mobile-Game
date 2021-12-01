@@ -1,47 +1,14 @@
 # Desert Darts Mobile
 
-## Endless Mode
+Play with the cacti of the desert in a fast paced endless arcade experience! 
 
-**TODO**
-Add max distance value for spines to spawn away from each other
+Move the target by tilting your device and catch the cactus spines that are flying towards the bottom!
 
-Add Highscore
+Aim for the center for more points and higher multipliers!
 
-Add X number of Lives
+Lose a life when you miss completely. The game ends when you lose all of your lives!
 
-I think I want difficulty settings also:
-- Easy
-	- Increased Target Size
-	- Lower Intensity Strength
-	- More Lives (5?)
-
-- Normal
-	- Default Target Size (What it is now)
-	- Medium Intensity Strength
-	- Lower Lives (3?)
-
-- Hard
-	- Smaller Target Size
-	- High Intensity Strength
-	- 1 or 0 Lives?
-
-Raise volume on normal spine hit
-
-On spine miss, delete current spine pattern to prevent instant spawns, giving delay to player
-
-### End Condition
-
-**Ideas**
-
-Usually its like losing all your lives or something
-	- Would require a screen clear effect when you miss tho, and missing is definitely more likely in this game
-
-Could be a time based mode, given the multiplicative nature of Intensity this could be cool.
-	- Given a set time limit, how many points?
-	- Encourages high Intensity play and rewards big points
-	- High score mastery
-	- Short games = easy to pickup
-	
+Try to best your highscore with endless relatability!
 	
 ## Inspirations	
 
