@@ -483,7 +483,7 @@ TextureImporter:
       213: -1741171362131939039
     second: sheet_white2x_159
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -500,10 +500,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -542,6 +544,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -553,6 +557,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -565,6 +570,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -577,6 +583,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -589,6 +596,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -601,6 +609,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -2821,9 +2830,114 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-  spritePackingTag: 
+    nameFileIdTable:
+      sheet_white2x_0: 4050899197834454385
+      sheet_white2x_1: 3628109824336020743
+      sheet_white2x_10: -923691578334217881
+      sheet_white2x_100: 2040404984622825555
+      sheet_white2x_101: -3069754903126892734
+      sheet_white2x_102: -4265006878985007113
+      sheet_white2x_103: -439548343093522613
+      sheet_white2x_104: -7915607881267510400
+      sheet_white2x_11: 764195502549903100
+      sheet_white2x_12: 4642829387096828860
+      sheet_white2x_13: 120102536306880062
+      sheet_white2x_14: 2057508617555048170
+      sheet_white2x_15: 4244444055627963532
+      sheet_white2x_16: 607137125430716721
+      sheet_white2x_17: -3189298502725306168
+      sheet_white2x_18: 8543024714726346478
+      sheet_white2x_19: 6163184059788138200
+      sheet_white2x_2: 5285294579573078053
+      sheet_white2x_20: 396651513394628237
+      sheet_white2x_21: 8657607248455390787
+      sheet_white2x_22: 3111270206554356814
+      sheet_white2x_23: 1252090063900302044
+      sheet_white2x_24: -2861542368546785299
+      sheet_white2x_25: 7588518983924345168
+      sheet_white2x_26: 8432035519684057052
+      sheet_white2x_27: 2026917466459941682
+      sheet_white2x_28: 2397150650490384335
+      sheet_white2x_29: -1200427275783724005
+      sheet_white2x_3: 4964635284764557786
+      sheet_white2x_30: 561550467523495860
+      sheet_white2x_31: -2789201414582085655
+      sheet_white2x_32: 4724362014329431202
+      sheet_white2x_33: -5389518860701333494
+      sheet_white2x_34: -7105514973108234374
+      sheet_white2x_35: 1221971940966469167
+      sheet_white2x_36: -7668404348379362283
+      sheet_white2x_37: -3209285245605287696
+      sheet_white2x_38: -5407506169051849089
+      sheet_white2x_39: 1536401283024858575
+      sheet_white2x_4: -2756051974744590146
+      sheet_white2x_40: -8360213444618251679
+      sheet_white2x_41: 169795907466009067
+      sheet_white2x_42: 7221274014496838849
+      sheet_white2x_43: -1917766787888837240
+      sheet_white2x_44: -7457475117411342448
+      sheet_white2x_45: 1097666277199308312
+      sheet_white2x_46: -4520227894872994105
+      sheet_white2x_47: 8617078329392797738
+      sheet_white2x_48: -3532590026973133917
+      sheet_white2x_49: -6165196343856887769
+      sheet_white2x_5: -6176048544804298481
+      sheet_white2x_50: 2171585992827754037
+      sheet_white2x_51: 7926369752899402733
+      sheet_white2x_52: -497119167525017312
+      sheet_white2x_53: -2313844752133244142
+      sheet_white2x_54: 5937873313548383321
+      sheet_white2x_55: 4120157110156991132
+      sheet_white2x_56: 4273490703001004060
+      sheet_white2x_57: 2858459360327814355
+      sheet_white2x_58: -8145076517367132477
+      sheet_white2x_59: 6293442765647838355
+      sheet_white2x_6: -4747125512316219050
+      sheet_white2x_60: -3389461719943565285
+      sheet_white2x_61: 2567274580630129234
+      sheet_white2x_62: 4911257460414905010
+      sheet_white2x_63: 95857379615050454
+      sheet_white2x_64: 4297323803670922345
+      sheet_white2x_65: 8605305257323141971
+      sheet_white2x_66: -9006935646223155878
+      sheet_white2x_67: -1514834390396368387
+      sheet_white2x_68: 6871975071513910000
+      sheet_white2x_69: 8062339891068530215
+      sheet_white2x_7: -352040738879612513
+      sheet_white2x_70: -3447378808447457404
+      sheet_white2x_71: 6671129100014354366
+      sheet_white2x_72: 1118947923956142090
+      sheet_white2x_73: 6323426868568382805
+      sheet_white2x_74: 7944509282496409088
+      sheet_white2x_75: 6456995281353931684
+      sheet_white2x_76: 7709631203472704749
+      sheet_white2x_77: 1715603959206205095
+      sheet_white2x_78: -4416899105631906966
+      sheet_white2x_79: -2805701076614761648
+      sheet_white2x_8: -1391779978125557386
+      sheet_white2x_80: 7708405297961847522
+      sheet_white2x_81: -7371491302934811483
+      sheet_white2x_82: -8866011778833548483
+      sheet_white2x_83: 2407027008559598715
+      sheet_white2x_84: -8767225773237536183
+      sheet_white2x_85: 1659212832947455779
+      sheet_white2x_86: 250813556502845368
+      sheet_white2x_87: 3809715683797122857
+      sheet_white2x_88: -3122604328310779665
+      sheet_white2x_89: -7034908686021106348
+      sheet_white2x_9: 6798190698159203133
+      sheet_white2x_90: -4573874201458485967
+      sheet_white2x_91: 3056668285580966204
+      sheet_white2x_92: 4683989685017361234
+      sheet_white2x_93: -816786333979151077
+      sheet_white2x_94: 3919210603284032330
+      sheet_white2x_95: 5338079465471917210
+      sheet_white2x_96: 5313233450616112101
+      sheet_white2x_97: -892248438189761546
+      sheet_white2x_98: -5769542533349940489
+      sheet_white2x_99: -6883952065983718805
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

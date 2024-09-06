@@ -54,6 +54,8 @@ public class GameManager : MonoBehaviour
         source = GetComponent<AudioSource>();
 
         SceneManager.sceneLoaded += StartGame;
+
+        Application.targetFrameRate = 59;
     }
 
     private void StartGame(Scene scene, LoadSceneMode loadSceneMode)
@@ -72,7 +74,7 @@ public class GameManager : MonoBehaviour
             SpineSpawnManager.instance.StartSpawning();
 
             //Debug.Log("Highscore: " + SaveDataManager.instance.CurrentSaveData.Highscores[0]);
-            UIManager.instance.SetValueTextMesh(UIManager.TextType.Highscore, SaveDataManager.instance.CurrentSaveData.Highscores[0]);
+            UIManager.instance.SetValueTextMesh(UIManager.TextType.Highscore, SaveDataManager.instance.CurrentSaveData.Highscore);
 
             foreach (GameObject targetSection in GameObject.FindGameObjectsWithTag("TargetSection"))
             {
@@ -90,6 +92,9 @@ public class GameManager : MonoBehaviour
 
         totalPoints = MathUtility.ApplyOperation(operation, totalPoints, value);
         UIManager.instance.SetValueTextMesh(UIManager.TextType.Points, totalPoints);
+
+        if(totalPoints > SaveDataManager.instance.CurrentSaveData.Highscore)
+            UIManager.instance.SetValueTextMesh(UIManager.TextType.Highscore, totalPoints);
     }
 
     // Takes in a a point value and a bool for if using the global multiplier. This version also takes in a position and color used for floating text popup
@@ -179,38 +184,12 @@ public class GameManager : MonoBehaviour
         UIManager.instance.SetValueTextMesh(UIManager.TextType.Multiplier, pointsMultiplier, "x");
     }
 
-    private void CheckHighscoreAndSort(float points)
+    private void CheckHighscoreAndSave(float points)
     {
-        float[] highscores = new float[SaveDataManager.instance.highscoreCount];
-        SaveDataManager.instance.CurrentSaveData.Highscores.CopyTo(highscores, 0);
+        if (points <= SaveDataManager.instance.CurrentSaveData.Highscore)
+            return;
 
-        int index = 0;
-
-        for (int i = 0; i < highscores.Length; i++)
-        {
-            if(points > highscores[i])
-            {
-                index = i;
-                break;
-            }
-        }
-
-        int j = 0;
-
-        for (int i = 0; i < highscores.Length; i++)
-        {
-            if(i == index)
-            {
-                highscores[i] = points;
-            }
-            else
-            {
-                highscores[i] = SaveDataManager.instance.CurrentSaveData.Highscores[j];
-                j++;
-            }
-        }
-
-        SaveDataManager.instance.CurrentSaveData.SetHighscores(highscores);
+        SaveDataManager.instance.CurrentSaveData.SetHighscore(points);
     }
 
     private void AdjustLives(MathUtility.Operation operation, int amount)
@@ -237,7 +216,7 @@ public class GameManager : MonoBehaviour
 
     private void GameOver()
     {
-        CheckHighscoreAndSort(totalPoints);
+        CheckHighscoreAndSave(totalPoints);
 
         //Game Over Screen
         UIManager.instance.PauseGame(true, true, UIManager.PanelType.GameEnd);

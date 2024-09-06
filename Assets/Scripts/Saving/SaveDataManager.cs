@@ -29,7 +29,6 @@ public class SaveDataManager : MonoBehaviour
 
     [Header("Save Data Settings")]
     [SerializeField] string fileName = "cactus.json";
-    public int highscoreCount = 1;
     string filePath;
 
     SaveData currentData;
@@ -66,13 +65,13 @@ public class SaveDataManager : MonoBehaviour
 
     public void Clear()
     {
-        currentData = new SaveData(highscoreCount);
+        currentData = new SaveData();
         Save();
     }
 
     public void Initialize()
     {
-        currentData = new SaveData(highscoreCount);
+        currentData = new SaveData();
         Save();
     }
 }
@@ -81,19 +80,19 @@ public class SaveDataManager : MonoBehaviour
 public class SaveData
 {
     [SerializeField]
-    float[] highscores;
+    float highscore;
 
     [SerializeField]
     bool muteEffects = false;
     [SerializeField]
     bool muteMusic =false;
 
-    public float[] Highscores
+    public float Highscore
     {
-        get { return highscores; }
+        get { return highscore; }
         set
         {
-            highscores = value;
+            highscore = value;
             SaveDataManager.instance.Save();
         }
     }
@@ -118,21 +117,16 @@ public class SaveData
         }
     }
 
-    public SaveData(int highscoreCount = 1)
+    public SaveData()
     {
-        highscores = new float[highscoreCount];
+        highscore = 0;
 
-        for (int i = 0; i < highscores.Length; i++)
-        {
-            highscores[i] = 0;
-        }
-
-        SaveDataManager.instance.Save();
+        //SaveDataManager.instance.Save();
     }
 
-    public void SetHighscores(float[] scores)
+    public void SetHighscore(float score)
     {
-        scores.CopyTo(highscores, 0);
+        highscore = score;
         SaveDataManager.instance.Save();
     }
 }
